@@ -8,11 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.10" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" /> <!-- Ajoutez cette ligne -->
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+
   </ItemGroup>
 
 </Project>

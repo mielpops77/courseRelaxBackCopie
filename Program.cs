@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System.IO;
+using Microsoft.AspNetCore.Identity;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,7 +27,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAngularFrontend",
         builder =>
         {
-            builder.WithOrigins("http://localhost:4200", "http://localhost:65255")
+            builder.WithOrigins("http://localhost:4200", "http://localhost:65255", "http://localhost:65256")
                    .AllowAnyMethod()
                    .AllowAnyHeader();
         });

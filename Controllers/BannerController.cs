@@ -43,7 +43,8 @@ namespace British_Kingdom_back.Controllers
                 var bannerImagesString = string.Join(",", bannerSection.BannerImages!);
                 var menuString = bannerSection.Menu != null ? string.Join(",", bannerSection.Menu) : null;
 
-                using (var command = new SqlCommand("INSERT INTO BannerSection ( BannerImages, MaleDescription, KittenDescription, FemaleDescription, Title, Subtitle, MaleImg, KittenImg, FemaleImg, TitleFontSize, TitleFontStyle, TitleFontFamily, SubtitleFontSize, SubtitleFontStyle, SubtitleFontFamily, ColorHeader, TitleColor, SubtitleColor, TitleCard1, TitleCard2, TitleCard3, Menu, ColorMenu, HoverColorMenu, FontStyleMenu, ColorFooter, Favicon, TitlePageMales, TitleFontStylePageMales, TitleColorPageMales, TextPageMales, TextFontStylePageMales, TextColorPageMales, BordureColorPageMales, TitlePageFemelles, TitleFontStylePageFemelles, TitleColorPageFemelles, TextPageFemelles, TextFontStylePageFemelles, TextColorPageFemelles, BordureColorPageFemelles ) VALUES (@BannerImages, @MaleDescription, @KittenDescription, @FemaleDescription, @Title, @Subtitle, @MaleImg, @KittenImg, @FemaleImg, @TitleFontSize, @TitleFontStyle, @TitleFontFamily, @SubtitleFontSize, @SubtitleFontStyle, @SubtitleFontFamily, @ColorHeader, @TitleColor, @SubtitleColor,@TitleCard1, @TitleCard2, @TitleCard3, @Menu, @ColorMenu, @HoverColorMenu, @FontStyleMenu, @ColorFooter, @Favicon, @TitlePageMales, @TitleFontStylePageMales, @TitleColorPageMales, @TextPageMales, @TextFontStylePageMales, @TextColorPageMales, @BordureColorPageMales, @TitlePageFemelles, @TitleFontStylePageFemelles, @TitleColorPageFemelles, @TextPageFemelles, @TextFontStylePageFemelles, @TextColorPageFemelles, @BordureColorPageFemelles, @TitlePageConditions, @TitleFontStylePageConditions, @TitleColorPageConditions, @SousTitlePageConditions, @SousTitleFontStylePageConditions, @SousTitleColorPageConditions, @TextPageConditions, @TextFontStylePageConditions, @TextColorPageConditions, @BordureColorPageConditions )", connection))
+                using (var command = new SqlCommand("INSERT INTO BannerSection (BannerImages, MaleDescription, KittenDescription, FemaleDescription, Title, Subtitle, MaleImg, KittenImg, FemaleImg, TitleFontSize, TitleFontStyle, TitleFontFamily, SubtitleFontSize, SubtitleFontStyle, SubtitleFontFamily, ColorHeader, TitleColor, SubtitleColor, TitleCard1, TitleCard2, TitleCard3, Menu, ColorMenu, HoverColorMenu, FontStyleMenu, ColorFooter, Favicon, TitlePageMales, TitleFontStylePageMales, TitleColorPageMales, TextPageMales, TextFontStylePageMales, TextColorPageMales, BordureColorPageMales, TitlePageFemelles, TitleFontStylePageFemelles, TitleColorPageFemelles, TextPageFemelles, TextFontStylePageFemelles, TextColorPageFemelles, BordureColorPageFemelles, TitleFontStylePageChatons, TitleColorPageChatons, Info1FontStylePageChatons, Info1ColorPageChatons, Info2FontStylePageChatons, Info2ColorPageChatons, Info3FontStylePageChatons, Info3ColorPageChatons, BordureColorPageChatons, ButtonColorPageChatons, ButtonTextColorPageChatons, ButtonTextFontStylePageChatons, TextPageContact, TextPageCondition, TitlePagelivreDor, TitleFontStylePagelivreDor, TitleColorPagelivreDor, ButtonColorPagelivreDor, ButtonTextColorPagelivreDor, ButtonTextFontStylePagelivreDor, TitleFontStylePagechatProfil, TitleColorPagechatProfil, TextFontStylePagechatProfil, TextColorPagechatProfil, ButtonColorPagechatProfil, ButtonTextColorPagechatProfil, ButtonTextFontStylePagechatProfil, BordureColorPagechatProfil, BagroundColorPagechatProfil, TitleFontStylePagechatonProfil, TitleColorPagechatonProfil, TextFontStylePagechatonProfil, TextColorPagechatonProfil, StatusNameFontStylePagechatonProfil, StatusNameColorPagechatonProfil, BreedFontStylePagechatonProfil, BreedColorPagechatonProfil, BagroundColorBreedPagechatonProfil) VALUES " +
+                                          "(@BannerImages, @MaleDescription, @KittenDescription, @FemaleDescription, @Title, @Subtitle, @MaleImg, @KittenImg, @FemaleImg, @TitleFontSize, @TitleFontStyle, @TitleFontFamily, @SubtitleFontSize, @SubtitleFontStyle, @SubtitleFontFamily, @ColorHeader, @TitleColor, @SubtitleColor,@TitleCard1, @TitleCard2, @TitleCard3, @Menu, @ColorMenu, @HoverColorMenu, @FontStyleMenu, @ColorFooter, @Favicon, @TitlePageMales, @TitleFontStylePageMales, @TitleColorPageMales, @TextPageMales, @TextFontStylePageMales, @TextColorPageMales, @BordureColorPageMales, @TitlePageFemelles, @TitleFontStylePageFemelles, @TitleColorPageFemelles, @TextPageFemelles, @TextFontStylePageFemelles, @TextColorPageFemelles, @BordureColorPageFemelles, @TitleFontStylePageChatons, @TitleColorPageChatons, @Info1FontStylePageChatons, @Info1ColorPageChatons, @Info2FontStylePageChatons, @Info2ColorPageChatons, @Info3FontStylePageChatons, @Info3ColorPageChatons, @BordureColorPageChatons, @ButtonColorPageChatons, @ButtonTextColorPageChatons, @ButtonTextFontStylePageChatons, @TextPageContact, @TextPageCondition, @TitlePagelivreDor, @TitleFontStylePagelivreDor, @TitleColorPagelivreDor, @ButtonColorPagelivreDor, @ButtonTextColorPagelivreDor, @ButtonTextFontStylePagelivreDor, @TitleFontStylePagechatProfil, @TitleColorPagechatProfil, @TextFontStylePagechatProfil, @TextColorPagechatProfil, @ButtonColorPagechatProfil, @ButtonTextColorPagechatProfil, @ButtonTextFontStylePagechatProfil, @BordureColorPagechatProfil, @BagroundColorPagechatProfil, @TitleFontStylePagechatonProfil, @TitleColorPagechatonProfil, @TextFontStylePagechatonProfil, @TextColorPagechatonProfil, @StatusNameFontStylePagechatonProfil, @StatusNameColorPagechatonProfil, @BreedFontStylePagechatonProfil, @BreedColorPagechatonProfil, @BagroundColorBreedPagechatonProfil)", connection))
                 {
                     command.Parameters.AddWithValue("@BannerImages", bannerImagesString);
                     command.Parameters.AddWithValue("@MaleDescription", bannerSection.MaleDescription);
@@ -94,19 +95,53 @@ namespace British_Kingdom_back.Controllers
 
                     command.Parameters.AddWithValue("@BordureColorPageFemelles", bannerSection.BordureColorPageFemelles);
 
-                    command.Parameters.AddWithValue("@TitlePageConditions", bannerSection.TitlePageConditions);
-                    command.Parameters.AddWithValue("@TitleFontStylePageConditions", bannerSection.TitleFontStylePageConditions);
-                    command.Parameters.AddWithValue("@TitleColorPageConditions", bannerSection.TitleColorPageConditions);
 
-                    command.Parameters.AddWithValue("@SousTitlePageConditions", string.Join(",", bannerSection.SousTitlePageConditions));
-                    command.Parameters.AddWithValue("@SousTitleFontStylePageConditions", bannerSection.SousTitleFontStylePageConditions);
-                    command.Parameters.AddWithValue("@SousTitleColorPageConditions", bannerSection.SousTitleColorPageConditions);
 
-                    command.Parameters.AddWithValue("@TextPageConditions", string.Join(",", bannerSection.TextPageConditions));
-                    command.Parameters.AddWithValue("@TextFontStylePageConditions", bannerSection.TextFontStylePageConditions);
-                    command.Parameters.AddWithValue("@TextColorPageConditions", bannerSection.TextColorPageConditions);
+                    command.Parameters.AddWithValue("@TitleFontStylePageChatons", bannerSection.TitleFontStylePageChatons);
+                    command.Parameters.AddWithValue("@TitleColorPageChatons", bannerSection.TitleColorPageChatons);
 
-                    command.Parameters.AddWithValue("@BordureColorPageConditions", bannerSection.BordureColorPageConditions);
+                    command.Parameters.AddWithValue("@Info1FontStylePageChatons", bannerSection.Info1FontStylePageChatons);
+                    command.Parameters.AddWithValue("@Info1ColorPageChatons", bannerSection.Info1ColorPageChatons);
+
+                    command.Parameters.AddWithValue("@Info2FontStylePageChatons", bannerSection.Info2FontStylePageChatons);
+                    command.Parameters.AddWithValue("@Info2ColorPageChatons", bannerSection.Info2ColorPageChatons);
+
+                    command.Parameters.AddWithValue("@Info3FontStylePageChatons", bannerSection.Info3FontStylePageChatons);
+                    command.Parameters.AddWithValue("@Info3ColorPageChatons", bannerSection.Info3ColorPageChatons);
+
+                    command.Parameters.AddWithValue("@BordureColorPageChatons", bannerSection.BordureColorPageChatons);
+                    command.Parameters.AddWithValue("@ButtonColorPageChatons", bannerSection.ButtonColorPageChatons);
+                    command.Parameters.AddWithValue("@ButtonTextColorPageChatons", bannerSection.ButtonTextColorPageChatons);
+                    command.Parameters.AddWithValue("@ButtonTextFontStylePageChatons", bannerSection.ButtonTextFontStylePageChatons);
+                    command.Parameters.AddWithValue("@TextPageContact", bannerSection.TextPageContact);
+                    command.Parameters.AddWithValue("@TextPageCondition", bannerSection.TextPageCondition);
+
+                    command.Parameters.AddWithValue("@TitlePagelivreDor", bannerSection.TitlePagelivreDor);
+                    command.Parameters.AddWithValue("@TitleFontStylePagelivreDor", bannerSection.TitleFontStylePagelivreDor);
+                    command.Parameters.AddWithValue("@TitleColorPagelivreDor", bannerSection.TitleColorPagelivreDor);
+                    command.Parameters.AddWithValue("@ButtonColorPagelivreDor", bannerSection.ButtonColorPagelivreDor);
+                    command.Parameters.AddWithValue("@ButtonTextColorPagelivreDor", bannerSection.ButtonTextColorPagelivreDor);
+                    command.Parameters.AddWithValue("@ButtonTextFontStylePagelivreDor", bannerSection.ButtonTextFontStylePagelivreDor);
+
+                    command.Parameters.AddWithValue("@TitleFontStylePagechatProfil", bannerSection.TitleFontStylePagechatProfil);
+                    command.Parameters.AddWithValue("@TitleColorPagechatProfil", bannerSection.TitleColorPagechatProfil);
+                    command.Parameters.AddWithValue("@TextFontStylePagechatProfil", bannerSection.TextFontStylePagechatProfil);
+                    command.Parameters.AddWithValue("@TextColorPagechatProfil", bannerSection.TextColorPagechatProfil);
+                    command.Parameters.AddWithValue("@ButtonColorPagechatProfil", bannerSection.ButtonColorPagechatProfil);
+                    command.Parameters.AddWithValue("@ButtonTextColorPagechatProfil", bannerSection.ButtonTextColorPagechatProfil);
+                    command.Parameters.AddWithValue("@ButtonTextFontStylePagechatProfil", bannerSection.ButtonTextFontStylePagechatProfil);
+                    command.Parameters.AddWithValue("@BordureColorPagechatProfil", bannerSection.BordureColorPagechatProfil);
+                    command.Parameters.AddWithValue("@BagroundColorPagechatProfil", bannerSection.BagroundColorPagechatProfil);
+
+                    command.Parameters.AddWithValue("@TitleFontStylePagechatonProfil", bannerSection.TitleFontStylePagechatonProfil);
+                    command.Parameters.AddWithValue("@TitleColorPagechatonProfil", bannerSection.TitleColorPagechatonProfil);
+                    command.Parameters.AddWithValue("@TextFontStylePagechatonProfil", bannerSection.TextFontStylePagechatonProfil);
+                    command.Parameters.AddWithValue("@TextColorPagechatonProfil", bannerSection.TextColorPagechatonProfil);
+                    command.Parameters.AddWithValue("@StatusNameFontStylePagechatonProfil", bannerSection.StatusNameFontStylePagechatonProfil);
+                    command.Parameters.AddWithValue("@StatusNameColorPagechatonProfil", bannerSection.StatusNameColorPagechatonProfil);
+                    command.Parameters.AddWithValue("@BreedFontStylePagechatonProfil", bannerSection.BreedFontStylePagechatonProfil);
+                    command.Parameters.AddWithValue("@BreedColorPagechatonProfil", bannerSection.BreedColorPagechatonProfil);
+                    command.Parameters.AddWithValue("@BagroundColorBreedPagechatonProfil", bannerSection.BagroundColorBreedPagechatonProfil);
 
 
 
@@ -185,19 +220,52 @@ namespace British_Kingdom_back.Controllers
                                 TextFontStylePageFemelles = GetStringOrNull(reader, "TextFontStylePageFemelles"),
                                 TextColorPageFemelles = GetStringOrNull(reader, "TextColorPageFemelles"),
                                 BordureColorPageFemelles = GetStringOrNull(reader, "BordureColorPageFemelles"),
-                                TitlePageConditions = GetStringOrNull(reader, "TitlePageConditions"),
-                                TitleFontStylePageConditions = GetStringOrNull(reader, "TitleFontStylePageConditions"),
-                                TitleColorPageConditions = GetStringOrNull(reader, "TitleColorPageConditions"),
 
-                                SousTitlePageConditions = GetStringArrayOrNull(reader, "SousTitlePageConditions"),
-                                SousTitleFontStylePageConditions = GetStringOrNull(reader, "SousTitleFontStylePageConditions"),
-                                SousTitleColorPageConditions = GetStringOrNull(reader, "SousTitleColorPageConditions"),
+                                TitleFontStylePageChatons = GetStringOrNull(reader, "TitleFontStylePageChatons"),
+                                TitleColorPageChatons = GetStringOrNull(reader, "TitleColorPageChatons"),
 
-                                TextPageConditions = GetStringArrayOrNull(reader, "TextPageConditions"),
-                                TextFontStylePageConditions = GetStringOrNull(reader, "TextFontStylePageConditions"),
-                                TextColorPageConditions = GetStringOrNull(reader, "TextColorPageConditions"),
+                                Info1FontStylePageChatons = GetStringOrNull(reader, "Info1FontStylePageChatons"),
+                                Info1ColorPageChatons = GetStringOrNull(reader, "Info1ColorPageChatons"),
 
-                                BordureColorPageConditions = GetStringOrNull(reader, "BordureColorPageConditions")
+                                Info2FontStylePageChatons = GetStringOrNull(reader, "Info2FontStylePageChatons"),
+                                Info2ColorPageChatons = GetStringOrNull(reader, "Info2ColorPageChatons"),
+
+                                Info3FontStylePageChatons = GetStringOrNull(reader, "Info3FontStylePageChatons"),
+                                Info3ColorPageChatons = GetStringOrNull(reader, "Info3ColorPageChatons"),
+
+                                BordureColorPageChatons = GetStringOrNull(reader, "BordureColorPageChatons"),
+
+                                ButtonColorPageChatons = GetStringOrNull(reader, "ButtonColorPageChatons"),
+                                ButtonTextColorPageChatons = GetStringOrNull(reader, "ButtonTextColorPageChatons"),
+                                ButtonTextFontStylePageChatons = GetStringOrNull(reader, "ButtonTextFontStylePageChatons"),
+                                TextPageContact = GetStringOrNull(reader, "TextPageContact"),
+                                TextPageCondition = GetStringOrNull(reader, "TextPageCondition"),
+
+                                TitlePagelivreDor = GetStringOrNull(reader, "TitlePagelivreDor"),
+                                TitleFontStylePagelivreDor = GetStringOrNull(reader, "TitleFontStylePagelivreDor"),
+                                TitleColorPagelivreDor = GetStringOrNull(reader, "TitleColorPagelivreDor"),
+                                ButtonColorPagelivreDor = GetStringOrNull(reader, "ButtonColorPagelivreDor"),
+                                ButtonTextColorPagelivreDor = GetStringOrNull(reader, "ButtonTextColorPagelivreDor"),
+                                ButtonTextFontStylePagelivreDor = GetStringOrNull(reader, "ButtonTextFontStylePagelivreDor"),
+                                TitleFontStylePagechatProfil = GetStringOrNull(reader, "TitleFontStylePagechatProfil"),
+                                TitleColorPagechatProfil = GetStringOrNull(reader, "TitleColorPagechatProfil"),
+                                TextFontStylePagechatProfil = GetStringOrNull(reader, "TextFontStylePagechatProfil"),
+                                TextColorPagechatProfil = GetStringOrNull(reader, "TextColorPagechatProfil"),
+                                ButtonColorPagechatProfil = GetStringOrNull(reader, "ButtonColorPagechatProfil"),
+                                ButtonTextColorPagechatProfil = GetStringOrNull(reader, "ButtonTextColorPagechatProfil"),
+                                ButtonTextFontStylePagechatProfil = GetStringOrNull(reader, "ButtonTextFontStylePagechatProfil"),
+                                BordureColorPagechatProfil = GetStringOrNull(reader, "BordureColorPagechatProfil"),
+                                BagroundColorPagechatProfil = GetStringOrNull(reader, "BagroundColorPagechatProfil"),
+                                TitleFontStylePagechatonProfil = GetStringOrNull(reader, "TitleFontStylePagechatonProfil"),
+                                TitleColorPagechatonProfil = GetStringOrNull(reader, "TitleColorPagechatonProfil"),
+                                TextFontStylePagechatonProfil = GetStringOrNull(reader, "TextFontStylePagechatonProfil"),
+                                TextColorPagechatonProfil = GetStringOrNull(reader, "TextColorPagechatonProfil"),
+                                StatusNameFontStylePagechatonProfil = GetStringOrNull(reader, "StatusNameFontStylePagechatonProfil"),
+                                StatusNameColorPagechatonProfil = GetStringOrNull(reader, "StatusNameColorPagechatonProfil"),
+                                BreedFontStylePagechatonProfil = GetStringOrNull(reader, "BreedFontStylePagechatonProfil"),
+                                BreedColorPagechatonProfil = GetStringOrNull(reader, "BreedColorPagechatonProfil"),
+                                BagroundColorBreedPagechatonProfil = GetStringOrNull(reader, "BagroundColorBreedPagechatonProfil"),
+
                             };
 
                             bannerSections.Add(bannerSection);
@@ -235,8 +303,9 @@ namespace British_Kingdom_back.Controllers
             {
                 connection.Open();
 
-                using (var command = new SqlCommand("UPDATE BannerSection SET BannerImages = @BannerImages, MaleDescription = @MaleDescription, KittenDescription = @KittenDescription, FemaleDescription = @FemaleDescription, TitleCard1 = @TitleCard1, TitleCard2 = @TitleCard2, TitleCard3 = @TitleCard3, Title = @Title, Subtitle = @Subtitle, MaleImg = @MaleImg, KittenImg = @KittenImg, FemaleImg = @FemaleImg, TitleFontSize = @TitleFontSize, TitleFontStyle = @TitleFontStyle, TitleFontFamily = @TitleFontFamily, SubtitleFontSize = @SubtitleFontSize, SubtitleFontStyle = @SubtitleFontStyle, SubtitleFontFamily = @SubtitleFontFamily, ColorHeader=@ColorHeader, TitleColor = @TitleColor, SubtitleColor=@SubtitleColor, Menu = @Menu, ColorMenu = @ColorMenu, HoverColorMenu = @HoverColorMenu, FontStyleMenu = @FontStyleMenu, ColorFooter = @ColorFooter, Favicon = @Favicon, TitlePageMales = @TitlePageMales, TitleFontStylePageMales = @TitleFontStylePageMales, TitleColorPageMales = @TitleColorPageMales, TextPageMales = @TextPageMales, TextFontStylePageMales = @TextFontStylePageMales, TextColorPageMales = @TextColorPageMales, BordureColorPageMales = @BordureColorPageMales, TitlePageFemelles = @TitlePageFemelles, TitleFontStylePageFemelles = @TitleFontStylePageFemelles, TitleColorPageFemelles = @TitleColorPageFemelles, TextPageFemelles = @TextPageFemelles, TextFontStylePageFemelles = @TextFontStylePageFemelles, TextColorPageFemelles = @TextColorPageFemelles, BordureColorPageFemelles = @BordureColorPageFemelles, TitlePageConditions = @TitlePageConditions, TitleFontStylePageConditions = @TitleFontStylePageConditions, TitleColorPageConditions = @TitleColorPageConditions, SousTitlePageConditions = @SousTitlePageConditions, SousTitleFontStylePageConditions = @SousTitleFontStylePageConditions, SousTitleColorPageConditions = @SousTitleColorPageConditions, TextPageConditions = @TextPageConditions, TextFontStylePageConditions = @TextFontStylePageConditions, TextColorPageConditions = @TextColorPageConditions, BordureColorPageConditions = @BordureColorPageConditions WHERE Id = @Id", connection))
+                using (var command = new SqlCommand("UPDATE BannerSection SET BannerImages = @BannerImages, MaleDescription = @MaleDescription, KittenDescription = @KittenDescription, FemaleDescription = @FemaleDescription, TitleCard1 = @TitleCard1, TitleCard2 = @TitleCard2, TitleCard3 = @TitleCard3, Title = @Title, Subtitle = @Subtitle, MaleImg = @MaleImg, KittenImg = @KittenImg, FemaleImg = @FemaleImg, TitleFontSize = @TitleFontSize, TitleFontStyle = @TitleFontStyle, TitleFontFamily = @TitleFontFamily, SubtitleFontSize = @SubtitleFontSize, SubtitleFontStyle = @SubtitleFontStyle, SubtitleFontFamily = @SubtitleFontFamily, ColorHeader=@ColorHeader, TitleColor = @TitleColor, SubtitleColor=@SubtitleColor, Menu = @Menu, ColorMenu = @ColorMenu, HoverColorMenu = @HoverColorMenu, FontStyleMenu = @FontStyleMenu, ColorFooter = @ColorFooter, Favicon = @Favicon, TitlePageMales = @TitlePageMales, TitleFontStylePageMales = @TitleFontStylePageMales, TitleColorPageMales = @TitleColorPageMales, TextPageMales = @TextPageMales, TextFontStylePageMales = @TextFontStylePageMales, TextColorPageMales = @TextColorPageMales, BordureColorPageMales = @BordureColorPageMales, TitlePageFemelles = @TitlePageFemelles, TitleFontStylePageFemelles = @TitleFontStylePageFemelles, TitleColorPageFemelles = @TitleColorPageFemelles, TextPageFemelles = @TextPageFemelles, TextFontStylePageFemelles = @TextFontStylePageFemelles, TextColorPageFemelles = @TextColorPageFemelles, BordureColorPageFemelles = @BordureColorPageFemelles, TitleFontStylePageChatons = @TitleFontStylePageChatons, TitleColorPageChatons = @TitleColorPageChatons, Info1FontStylePageChatons = @Info1FontStylePageChatons, Info1ColorPageChatons = @Info1ColorPageChatons, Info2FontStylePageChatons = @Info2FontStylePageChatons, Info2ColorPageChatons = @Info2ColorPageChatons, Info3FontStylePageChatons = @Info3FontStylePageChatons, Info3ColorPageChatons = @Info3ColorPageChatons, BordureColorPageChatons = @BordureColorPageChatons, ButtonColorPageChatons = @ButtonColorPageChatons, ButtonTextColorPageChatons = @ButtonTextColorPageChatons, ButtonTextFontStylePageChatons = @ButtonTextFontStylePageChatons, TextPageContact = @TextPageContact, TextPageCondition = @TextPageCondition, TitlePagelivreDor = @TitlePagelivreDor, TitleFontStylePagelivreDor = @TitleFontStylePagelivreDor, TitleColorPagelivreDor = @TitleColorPagelivreDor, ButtonColorPagelivreDor = @ButtonColorPagelivreDor, ButtonTextColorPagelivreDor = @ButtonTextColorPagelivreDor, ButtonTextFontStylePagelivreDor = @ButtonTextFontStylePagelivreDor, TitleFontStylePagechatProfil = @TitleFontStylePagechatProfil, TitleColorPagechatProfil = @TitleColorPagechatProfil, TextFontStylePagechatProfil = @TextFontStylePagechatProfil, TextColorPagechatProfil = @TextColorPagechatProfil, ButtonColorPagechatProfil = @ButtonColorPagechatProfil, ButtonTextColorPagechatProfil = @ButtonTextColorPagechatProfil, ButtonTextFontStylePagechatProfil = @ButtonTextFontStylePagechatProfil, BordureColorPagechatProfil = @BordureColorPagechatProfil, BagroundColorPagechatProfil = @BagroundColorPagechatProfil, TitleFontStylePagechatonProfil = @TitleFontStylePagechatonProfil, TitleColorPagechatonProfil = @TitleColorPagechatonProfil, TextFontStylePagechatonProfil = @TextFontStylePagechatonProfil, TextColorPagechatonProfil = @TextColorPagechatonProfil, StatusNameFontStylePagechatonProfil = @StatusNameFontStylePagechatonProfil, StatusNameColorPagechatonProfil = @StatusNameColorPagechatonProfil, BreedFontStylePagechatonProfil = @BreedFontStylePagechatonProfil, BreedColorPagechatonProfil = @BreedColorPagechatonProfil, BagroundColorBreedPagechatonProfil = @BagroundColorBreedPagechatonProfil WHERE Id = @Id", connection))
                 {
+
                     command.Parameters.AddWithValue("@Id", id);
                     command.Parameters.AddWithValue("@BannerImages", string.Join(",", updatedBannerSection.BannerImages!));
                     command.Parameters.AddWithValue("@MaleDescription", updatedBannerSection.MaleDescription);
@@ -279,19 +348,48 @@ namespace British_Kingdom_back.Controllers
                     command.Parameters.AddWithValue("@TextFontStylePageFemelles", updatedBannerSection.TextFontStylePageFemelles);
                     command.Parameters.AddWithValue("@TextColorPageFemelles", updatedBannerSection.TextColorPageFemelles);
                     command.Parameters.AddWithValue("@BordureColorPageFemelles", updatedBannerSection.BordureColorPageFemelles);
-                    command.Parameters.AddWithValue("@TitlePageConditions", updatedBannerSection.TitlePageConditions);
-                    command.Parameters.AddWithValue("@TitleFontStylePageConditions", updatedBannerSection.TitleFontStylePageConditions);
-                    command.Parameters.AddWithValue("@TitleColorPageConditions", updatedBannerSection.TitleColorPageConditions);
 
-                    command.Parameters.AddWithValue("@SousTitlePageConditions", updatedBannerSection.SousTitlePageConditions != null ? string.Join(",", updatedBannerSection.SousTitlePageConditions) : null);
-                    command.Parameters.AddWithValue("@SousTitleFontStylePageConditions", updatedBannerSection.SousTitleFontStylePageConditions);
-                    command.Parameters.AddWithValue("@SousTitleColorPageConditions", updatedBannerSection.SousTitleColorPageConditions);
 
-                    command.Parameters.AddWithValue("@TextPageConditions", updatedBannerSection.TextPageConditions != null ? string.Join(",", updatedBannerSection.TextPageConditions) : null);
-                    command.Parameters.AddWithValue("@TextFontStylePageConditions", updatedBannerSection.TextFontStylePageConditions);
-                    command.Parameters.AddWithValue("@TextColorPageConditions", updatedBannerSection.TextColorPageConditions);
+                    command.Parameters.AddWithValue("@TitleFontStylePageChatons", updatedBannerSection.TitleFontStylePageChatons);
+                    command.Parameters.AddWithValue("@TitleColorPageChatons", updatedBannerSection.TitleColorPageChatons);
+                    command.Parameters.AddWithValue("@Info1FontStylePageChatons", updatedBannerSection.Info1FontStylePageChatons);
+                    command.Parameters.AddWithValue("@Info1ColorPageChatons", updatedBannerSection.Info1ColorPageChatons);
+                    command.Parameters.AddWithValue("@Info2FontStylePageChatons", updatedBannerSection.Info2FontStylePageChatons);
+                    command.Parameters.AddWithValue("@Info2ColorPageChatons", updatedBannerSection.Info2ColorPageChatons);
+                    command.Parameters.AddWithValue("@Info3FontStylePageChatons", updatedBannerSection.Info3FontStylePageChatons);
+                    command.Parameters.AddWithValue("@Info3ColorPageChatons", updatedBannerSection.Info3ColorPageChatons);
+                    command.Parameters.AddWithValue("@BordureColorPageChatons", updatedBannerSection.BordureColorPageChatons);
+                    command.Parameters.AddWithValue("@ButtonColorPageChatons", updatedBannerSection.ButtonColorPageChatons);
+                    command.Parameters.AddWithValue("@ButtonTextColorPageChatons", updatedBannerSection.ButtonTextColorPageChatons);
+                    command.Parameters.AddWithValue("@ButtonTextFontStylePageChatons", updatedBannerSection.ButtonTextFontStylePageChatons);
+                    command.Parameters.AddWithValue("@TextPageContact", updatedBannerSection.TextPageContact);
+                    command.Parameters.AddWithValue("@TextPageCondition", updatedBannerSection.TextPageCondition);
 
-                    command.Parameters.AddWithValue("@BordureColorPageConditions", updatedBannerSection.BordureColorPageConditions);
+                    command.Parameters.AddWithValue("@TitlePagelivreDor", updatedBannerSection.TitlePagelivreDor ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@TitleFontStylePagelivreDor", updatedBannerSection.TitleFontStylePagelivreDor ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@TitleColorPagelivreDor", updatedBannerSection.TitleColorPagelivreDor ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@ButtonColorPagelivreDor", updatedBannerSection.ButtonColorPagelivreDor ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@ButtonTextColorPagelivreDor", updatedBannerSection.ButtonTextColorPagelivreDor ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@ButtonTextFontStylePagelivreDor", updatedBannerSection.ButtonTextFontStylePagelivreDor ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@TitleFontStylePagechatProfil", updatedBannerSection.TitleFontStylePagechatProfil ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@TitleColorPagechatProfil", updatedBannerSection.TitleColorPagechatProfil ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@TextFontStylePagechatProfil", updatedBannerSection.TextFontStylePagechatProfil ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@TextColorPagechatProfil", updatedBannerSection.TextColorPagechatProfil ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@ButtonColorPagechatProfil", updatedBannerSection.ButtonColorPagechatProfil ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@ButtonTextColorPagechatProfil", updatedBannerSection.ButtonTextColorPagechatProfil ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@ButtonTextFontStylePagechatProfil", updatedBannerSection.ButtonTextFontStylePagechatProfil ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@BordureColorPagechatProfil", updatedBannerSection.BordureColorPagechatProfil ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@BagroundColorPagechatProfil", updatedBannerSection.BagroundColorPagechatProfil ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@TitleFontStylePagechatonProfil", updatedBannerSection.TitleFontStylePagechatonProfil ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@TitleColorPagechatonProfil", updatedBannerSection.TitleColorPagechatonProfil ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@TextFontStylePagechatonProfil", updatedBannerSection.TextFontStylePagechatonProfil ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@TextColorPagechatonProfil", updatedBannerSection.TextColorPagechatonProfil ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@StatusNameFontStylePagechatonProfil", updatedBannerSection.StatusNameFontStylePagechatonProfil ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@StatusNameColorPagechatonProfil", updatedBannerSection.StatusNameColorPagechatonProfil ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@BreedFontStylePagechatonProfil", updatedBannerSection.BreedFontStylePagechatonProfil ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@BreedColorPagechatonProfil", updatedBannerSection.BreedColorPagechatonProfil ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@BagroundColorBreedPagechatonProfil", updatedBannerSection.BagroundColorBreedPagechatonProfil ?? (object)DBNull.Value);
+
 
 
 

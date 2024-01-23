@@ -75,20 +75,78 @@ public class BannerSection
     public string? BordureColorPageFemelles { get; set; }
 
 
+
+
+
+
+
+
+    //page chatons
+    public string? TitleFontStylePageChatons { get; set; }
+    public string? TitleColorPageChatons { get; set; }
+
+    public string? Info1FontStylePageChatons { get; set; }
+    public string? Info1ColorPageChatons { get; set; }
+
+    public string? Info2FontStylePageChatons { get; set; }
+    public string? Info2ColorPageChatons { get; set; }
+
+    public string? Info3FontStylePageChatons { get; set; }
+    public string? Info3ColorPageChatons { get; set; }
+    public string? BordureColorPageChatons { get; set; }
+
+
+    public string? ButtonColorPageChatons { get; set; }
+    public string? ButtonTextColorPageChatons { get; set; }
+    public string? ButtonTextFontStylePageChatons { get; set; }
+
+    //contact
+
+
+    public string? TextPageContact { get; set; }
+
+
+
     //page conditions
-    public string? TitlePageConditions { get; set; }
-    public string? TitleFontStylePageConditions { get; set; }
-    public string? TitleColorPageConditions { get; set; }
 
-    public string[]? SousTitlePageConditions  { get; set; }
-    public string? SousTitleFontStylePageConditions { get; set; }
-    public string? SousTitleColorPageConditions { get; set; }
+    public string? TextPageCondition { get; set; }
 
-    public string[]? TextPageConditions { get; set; }
-    public string? TextFontStylePageConditions { get; set; }
-    public string? TextColorPageConditions { get; set; }
 
-    public string? BordureColorPageConditions { get; set; }
+    //page livre-dor
+
+    public string? TitlePagelivreDor { get; set; }
+    public string? TitleFontStylePagelivreDor { get; set; }
+    public string? TitleColorPagelivreDor { get; set; }
+
+    public string? ButtonColorPagelivreDor { get; set; }
+    public string? ButtonTextColorPagelivreDor { get; set; }
+    public string? ButtonTextFontStylePagelivreDor { get; set; }
+
+
+    //page chatProfil
+
+    public string? TitleFontStylePagechatProfil { get; set; }
+    public string? TitleColorPagechatProfil { get; set; }
+    public string? TextFontStylePagechatProfil { get; set; }
+    public string? TextColorPagechatProfil { get; set; }
+    public string? ButtonColorPagechatProfil { get; set; }
+    public string? ButtonTextColorPagechatProfil { get; set; }
+    public string? ButtonTextFontStylePagechatProfil { get; set; }
+    public string? BordureColorPagechatProfil { get; set; }
+    public string? BagroundColorPagechatProfil { get; set; }
+
+
+    // Page chaton profil
+
+    public string? TitleFontStylePagechatonProfil { get; set; }
+    public string? TitleColorPagechatonProfil { get; set; }
+    public string? TextFontStylePagechatonProfil { get; set; }
+    public string? TextColorPagechatonProfil { get; set; }
+    public string? StatusNameFontStylePagechatonProfil { get; set; }
+    public string? StatusNameColorPagechatonProfil { get; set; }
+    public string? BreedFontStylePagechatonProfil { get; set; }
+    public string? BreedColorPagechatonProfil { get; set; }
+    public string? BagroundColorBreedPagechatonProfil { get; set; }
 
 
 }
