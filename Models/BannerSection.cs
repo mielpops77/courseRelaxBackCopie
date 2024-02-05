@@ -1,10 +1,12 @@
 public class BannerSection
 {
 
+
+    public int Id { get; set; }
+    public int ProfilId { get; set; }
+
     //Caroussel
     public string[]? BannerImages { get; set; }
-
-
 
 
     //card
@@ -18,6 +20,13 @@ public class BannerSection
     public string? MaleDescription { get; set; }
     public string? KittenDescription { get; set; }
     public string? FemaleDescription { get; set; }
+
+    public string? TitleFontStyleCard { get; set; }
+    public string? TitleColorCard { get; set; }
+    public string? TextFontStyleCard { get; set; }
+    public string? TextColorCard { get; set; }
+    public string? BackgroundColorCard { get; set; }
+
 
 
     //Header

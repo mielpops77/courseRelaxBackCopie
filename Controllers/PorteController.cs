@@ -145,6 +145,51 @@ namespace British_Kingdom_back.Controllers
             }
         }
 
+ [HttpGet("GetPorteesByParentId")]
+public async Task<IActionResult> GetPorteesByParentId(int parentId)
+{
+    var connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+    using (var connection = new SqlConnection(connectionString))
+    {
+        await connection.OpenAsync();
+
+        // Remplacez la requête suivante par votre requête SQL réelle pour récupérer une portée par ID du papa ou de la maman.
+        using (var command = new SqlCommand("SELECT * FROM Portee WHERE IdPapa = @ParentId OR IdMaman = @ParentId", connection))
+        {
+            command.Parameters.AddWithValue("@ParentId", parentId);
+
+            using (var reader = await command.ExecuteReaderAsync())
+            {
+                List<Portee> portees = new List<Portee>();
+
+                while (await reader.ReadAsync())
+                {
+                    var portee = new Portee
+                    {
+                        Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                        IdPapa = reader.GetInt32(reader.GetOrdinal("IdPapa")),
+                        IdMaman = reader.GetInt32(reader.GetOrdinal("IdMaman")),
+                        DateOfBirth = reader.GetDateTime(reader.GetOrdinal("DateOfBirth")),
+                        DateOfSell = reader.GetDateTime(reader.GetOrdinal("DateOfSell")),
+                        Name = reader.GetString(reader.GetOrdinal("Name")),
+                        ProfilId = reader.GetInt32(reader.GetOrdinal("ProfilId")),
+                        UrlProfilFather = reader.GetString(reader.GetOrdinal("UrlProfilFather")),
+                        UrlProfilMother = reader.GetString(reader.GetOrdinal("UrlProfilMother")),
+                        Disponible = reader.GetBoolean(reader.GetOrdinal("Disponible"))
+                    };
+                    portee.Chatons = await LoadChatonsForPorteeAsync(portee.Id, connection);
+                    portees.Add(portee);
+                }
+
+                return Ok(portees); // Retourne la liste des portées (même si elle est vide)
+            }
+        }
+    }
+}
+
+
+
         [HttpPost]
         public IActionResult CreatePortee(Portee portee)
         {

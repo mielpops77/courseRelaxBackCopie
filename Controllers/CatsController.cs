@@ -24,7 +24,7 @@ namespace British_Kingdom_back.Controllers
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                using (var command = new SqlCommand("INSERT INTO Cats (Name, ProfilId, Robe, EyeColor, Sex, Breed, DateOfBirth, UrlProfil, UrlProfilMother, UrlProfilFather, sailliesExterieures, Images) OUTPUT INSERTED.ID VALUES (@Name, @ProfilId, @Robe, @EyeColor, @Sex, @Breed, @DateOfBirth, @UrlProfil, @UrlProfilMother, @UrlProfilFather, @sailliesExterieures, @Images)", connection))
+                using (var command = new SqlCommand("INSERT INTO Cats (Name, ProfilId, Robe, EyeColor, Sex, Breed, DateOfBirth, UrlProfil, UrlProfilMother, UrlProfilFather, sailliesExterieures, Pedigree, Images) OUTPUT INSERTED.ID VALUES (@Name, @ProfilId, @Robe, @EyeColor, @Sex, @Breed, @DateOfBirth, @UrlProfil, @UrlProfilMother, @UrlProfilFather, @sailliesExterieures, @Pedigree, @Images)", connection))
                 {
                     // Ajout des paramètres comme avant
                     command.Parameters.AddWithValue("@Name", cat.Name);
@@ -38,6 +38,7 @@ namespace British_Kingdom_back.Controllers
                     command.Parameters.AddWithValue("@UrlProfilMother", cat.UrlProfilMother);
                     command.Parameters.AddWithValue("@UrlProfilFather", cat.UrlProfilFather);
                     command.Parameters.AddWithValue("@sailliesExterieures", cat.sailliesExterieures);
+                    command.Parameters.AddWithValue("@Pedigree", cat.Pedigree);
                     command.Parameters.AddWithValue("@Images", string.Join(",", cat.Images ?? Array.Empty<string>()));
 
                     // Exécuter la commande et récupérer l'identifiant généré
@@ -82,6 +83,7 @@ namespace British_Kingdom_back.Controllers
                                 UrlProfilMother = reader.GetString(reader.GetOrdinal("UrlProfilMother")),
                                 UrlProfilFather = reader.GetString(reader.GetOrdinal("UrlProfilFather")),
                                 sailliesExterieures = reader.GetString(reader.GetOrdinal("sailliesExterieures")),
+                                Pedigree = reader.GetString(reader.GetOrdinal("Pedigree")),
                                 Images = reader.GetString(reader.GetOrdinal("Images")).Split(',')
                             };
                             Console.WriteLine("catttttt");
@@ -128,6 +130,7 @@ namespace British_Kingdom_back.Controllers
                                 UrlProfilMother = reader.GetString(reader.GetOrdinal("UrlProfilMother")),
                                 UrlProfilFather = reader.GetString(reader.GetOrdinal("UrlProfilFather")),
                                 sailliesExterieures = reader.GetString(reader.GetOrdinal("sailliesExterieures")),
+                                Pedigree = reader.GetString(reader.GetOrdinal("Pedigree")),
                                 Images = reader.GetString(reader.GetOrdinal("Images")).Split(',')
                             };
 
@@ -180,8 +183,8 @@ namespace British_Kingdom_back.Controllers
                 using (var command = new SqlCommand(
                     "UPDATE Cats " + "SET Name = @Name, ProfilId = @ProfilId, Robe = @Robe, EyeColor = @EyeColor, Sex = @Sex, Breed = @Breed, " +
                     "DateOfBirth = @DateOfBirth, UrlProfil = @UrlProfil, UrlProfilMother = @UrlProfilMother, " +
-                    "UrlProfilFather = @UrlProfilFather, sailliesExterieures = @sailliesExterieures, " +
-                    "Images = @Images " + "WHERE Id = @Id", connection))
+                    "UrlProfilFather = @UrlProfilFather, sailliesExterieures = @sailliesExterieures, Pedigree = @Pedigree," + 
+                    "Images = @Images WHERE Id = @Id", connection))
                 {
                     // Ajoutez les paramètres comme avant
                     command.Parameters.AddWithValue("@Id", id);
@@ -196,6 +199,7 @@ namespace British_Kingdom_back.Controllers
                     command.Parameters.AddWithValue("@UrlProfilMother", cat.UrlProfilMother);
                     command.Parameters.AddWithValue("@UrlProfilFather", cat.UrlProfilFather);
                     command.Parameters.AddWithValue("@sailliesExterieures", cat.sailliesExterieures);
+                    command.Parameters.AddWithValue("@Pedigree", cat.Pedigree);
                     command.Parameters.AddWithValue("@Images", string.Join(",", cat.Images ?? Array.Empty<string>()));
 
                     int rowsAffected = command.ExecuteNonQuery();
