@@ -54,4 +54,4 @@ jobs:
           app-name: 'British-kingdom-back'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FEFA11031A58414B8929F46930241C21 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7185156227D14BFC9692622A6CC55B47 }}
