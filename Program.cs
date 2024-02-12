@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore; // Ajout de cette ligne
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
+using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,7 +33,9 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAngularFrontend",
         builder =>
         {
-            builder.WithOrigins("http://localhost:4200", "http://localhost:65255", "http://localhost:65256", "http://192.168.1.23")
+            //http://192.168.1.23 backend coté azure
+            //178.32.77.113 british kingdom.fr ovh
+            builder.WithOrigins("http://localhost:4200", "http://localhost:65255", "http://localhost:65256", "http://192.168.1.23", "178.32.77.113", "178.32.77.113")
                 .AllowAnyMethod()
                 .AllowAnyHeader();
         });
@@ -61,6 +65,23 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
+
+
+
+// Add Azure Storage configuration
+var azureStorageSettings = configuration.GetSection("AzureStorage").Get<AzureStorageSettings>();
+Console.WriteLine($"AccountName: {azureStorageSettings.AccountName}");
+Console.WriteLine($"AccountKey: {azureStorageSettings.AccountKey}");
+builder.Services.AddSingleton(azureStorageSettings);
+
+// Add Azure Blob Service client
+builder.Services.AddScoped(serviceProvider =>
+{
+    var blobServiceClient = new BlobServiceClient($"DefaultEndpointsProtocol=https;AccountName={azureStorageSettings.AccountName};AccountKey={azureStorageSettings.AccountKey};EndpointSuffix=core.windows.net");
+    return blobServiceClient;
+});
+
+
 
 
 var app = builder.Build();

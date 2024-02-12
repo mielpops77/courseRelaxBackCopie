@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using British_Kingdom_back.Models; // Assurez-vous d'importer correctement votre modèle
+using Azure.Storage.Blobs;
 
 namespace British_Kingdom_back.Controllers
 {
@@ -15,11 +16,15 @@ namespace British_Kingdom_back.Controllers
         private readonly IConfiguration _configuration;
         private readonly IWebHostEnvironment _environment;
 
-        public BannerController(IWebHostEnvironment environment, IConfiguration configuration)
+        private readonly BlobServiceClient _blobServiceClient;
+
+        public BannerController(IWebHostEnvironment environment, IConfiguration configuration, BlobServiceClient blobServiceClient)
         {
             _configuration = configuration;
             _environment = environment;
+            _blobServiceClient = blobServiceClient;
         }
+
 
         [HttpPost]
         public IActionResult CreateBannerSection(BannerSection bannerSection)
@@ -178,7 +183,11 @@ namespace British_Kingdom_back.Controllers
                     {
                         while (reader.Read())
                         {
-                            var bannerImagesArray = reader.GetString(reader.GetOrdinal("BannerImages")).Split(',');
+                            var bannerImagesString = reader.GetString(reader.GetOrdinal("BannerImages"));
+
+                            var bannerImagesArray = !string.IsNullOrEmpty(bannerImagesString)
+                                ? bannerImagesString.Split(',')
+                                : new string[0];
 
                             var bannerSection = new BannerSection
                             {
@@ -424,6 +433,41 @@ namespace British_Kingdom_back.Controllers
         }
 
 
+        /* 
+                    [HttpDelete("deleteMissingImages")]
+                    public async Task<IActionResult> DeleteImages([FromQuery] List<string> imagePaths, [FromQuery] string directory)
+                    {
+                        try
+                        {
+                            if (imagePaths == null || imagePaths.Count == 0)
+                            {
+                                return BadRequest("No image paths provided.");
+                            }
+
+                            // Utiliser la variable 'directory' pour personnaliser le chemin du dossier
+                            string customFolderPath = Path.Combine(_environment.WebRootPath, $"assets/{directory}");
+
+                            foreach (var imagePath in imagePaths)
+                            {
+                                string fullPath = Path.Combine(customFolderPath, imagePath);
+                                if (System.IO.File.Exists(fullPath))
+                                {
+                                    System.IO.File.Delete(fullPath);
+                                }
+                            }
+
+                            return Ok("Images deleted successfully.");
+                        }
+                        catch (Exception ex)
+                        {
+                            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                        }
+                    }
+
+
+                } */
+
+
 
         [HttpDelete("deleteMissingImages")]
         public async Task<IActionResult> DeleteImages([FromQuery] List<string> imagePaths, [FromQuery] string directory)
@@ -435,15 +479,23 @@ namespace British_Kingdom_back.Controllers
                     return BadRequest("No image paths provided.");
                 }
 
-                // Utiliser la variable 'directory' pour personnaliser le chemin du dossier
-                string customFolderPath = Path.Combine(_environment.WebRootPath, $"assets/{directory}");
+                // Get a reference to the container
+                var containerName = _configuration["AzureStorage:ContainerName"];
+                var containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
 
                 foreach (var imagePath in imagePaths)
                 {
-                    string fullPath = Path.Combine(customFolderPath, imagePath);
-                    if (System.IO.File.Exists(fullPath))
+                    // Form the blob name based on the directory and image path
+                    string blobName = $"{directory}/{imagePath}";
+
+                    // Get a reference to the blob
+                    var blobClient = containerClient.GetBlobClient(blobName);
+
+                    // Check if the blob exists
+                    if (await blobClient.ExistsAsync())
                     {
-                        System.IO.File.Delete(fullPath);
+                        // Delete the blob
+                        await blobClient.DeleteIfExistsAsync();
                     }
                 }
 
@@ -454,7 +506,6 @@ namespace British_Kingdom_back.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
-
 
     }
 }
