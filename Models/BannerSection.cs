@@ -27,6 +27,13 @@ public class BannerSection
     public string? TextColorCard { get; set; }
     public string? BackgroundColorCard { get; set; }
 
+    // Page acccueil petit text lieux
+    public string? TextPageAccueil { get; set; }
+    public string? TextFontStylePageAccueil { get; set; }
+    public string? TextColorPageAccueil { get; set; }
+
+
+
 
 
     //Header
@@ -155,7 +162,12 @@ public class BannerSection
     public string? StatusNameColorPagechatonProfil { get; set; }
     public string? BreedFontStylePagechatonProfil { get; set; }
     public string? BreedColorPagechatonProfil { get; set; }
-    public string? BagroundColorBreedPagechatonProfil { get; set; }
+    public string? BackgroundColorBreedPagechatonProfil { get; set; }
+
+
+
+
+
 
 
 }

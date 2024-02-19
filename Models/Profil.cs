@@ -14,4 +14,6 @@ public class Profil
     public string Youtube { get; set; } = string.Empty;
     public string Tiktok { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
+    public string DomaineName { get; set; } = string.Empty;
+
 }

@@ -32,7 +32,7 @@ namespace VotreNamespace.Controllers
             {
                 connection.Open();
 
-                using (var command = new SqlCommand("INSERT INTO Profil (FirstName, LastName, PhoneNumber, UserType, Siren, Facebook, Instagram, Twitter, Youtube, Tiktok, Email, profilId) VALUES ( @FirstName, @LastName, @PhoneNumber, @UserType, @Siren, @Facebook, @Instagram, @Twitter, @Youtube, @Tiktok, @Email, @ProfilId);", connection))
+                using (var command = new SqlCommand("INSERT INTO Profil (FirstName, LastName, PhoneNumber, UserType, Siren, Facebook, Instagram, Twitter, Youtube, Tiktok, Email, DomaineName, profilId) VALUES (@FirstName, @LastName, @PhoneNumber, @UserType, @Siren, @Facebook, @Instagram, @Twitter, @Youtube, @Tiktok, @Email, @DomaineName, @ProfilId);", connection))
                 {
                     command.Parameters.AddWithValue("@ProfilId", profil.ProfilId);
                     command.Parameters.AddWithValue("@FirstName", profil.FirstName);
@@ -46,7 +46,7 @@ namespace VotreNamespace.Controllers
                     command.Parameters.AddWithValue("@Youtube", profil.Youtube);
                     command.Parameters.AddWithValue("@Tiktok", profil.Tiktok);
                     command.Parameters.AddWithValue("@Email", profil.Email);
-
+                    command.Parameters.AddWithValue("@DomaineName", profil.DomaineName);
 
 
                     int rowsAffected = command.ExecuteNonQuery();
@@ -100,7 +100,8 @@ namespace VotreNamespace.Controllers
                                 Twitter = reader.GetString(reader.GetOrdinal("Twitter")),
                                 Youtube = reader.GetString(reader.GetOrdinal("Youtube")),
                                 Tiktok = reader.GetString(reader.GetOrdinal("Tiktok")),
-                                Email = reader.GetString(reader.GetOrdinal("Email"))
+                                Email = reader.GetString(reader.GetOrdinal("Email")),
+                                DomaineName = reader.GetString(reader.GetOrdinal("DomaineName")),
                             };
 
                             // Ajoutez d'autres propriétés ici en fonction de votre table Profil.
@@ -125,7 +126,7 @@ namespace VotreNamespace.Controllers
                 connection.Open();
 
                 // Remplacez la requête suivante par votre requête SQL réelle pour récupérer un profil par ID.
-                using (var command = new SqlCommand("SELECT * FROM Profil WHERE Id = @Id", connection))
+                using (var command = new SqlCommand("SELECT * FROM Profil WHERE ProfilId = @Id", connection))
                 {
                     command.Parameters.AddWithValue("@Id", id);
 
@@ -147,7 +148,9 @@ namespace VotreNamespace.Controllers
                                 Twitter = reader.GetString(reader.GetOrdinal("Twitter")),
                                 Youtube = reader.GetString(reader.GetOrdinal("Youtube")),
                                 Tiktok = reader.GetString(reader.GetOrdinal("Tiktok")),
-                                Email = reader.GetString(reader.GetOrdinal("Email"))
+                                Email = reader.GetString(reader.GetOrdinal("Email")),
+                                DomaineName = reader.GetString(reader.GetOrdinal("DomaineName")),
+
                             };
 
                             // Ajoutez d'autres propriétés ici en fonction de votre table Profil.
@@ -177,7 +180,7 @@ namespace VotreNamespace.Controllers
             {
                 connection.Open();
 
-                using (var command = new SqlCommand("UPDATE Profil SET FirstName = @FirstName, LastName = @LastName, PhoneNumber = @PhoneNumber, UserType = @UserType, Siren = @Siren, Facebook = @Facebook, Instagram = @Instagram, Twitter = @Twitter, Youtube = @Youtube, tiktok = @tiktok, Email = @Email, ProfilId = @ProfilId WHERE Id = @Id", connection))
+                using (var command = new SqlCommand("UPDATE Profil SET FirstName = @FirstName, LastName = @LastName, PhoneNumber = @PhoneNumber, UserType = @UserType, Siren = @Siren, Facebook = @Facebook, Instagram = @Instagram, Twitter = @Twitter, Youtube = @Youtube, tiktok = @tiktok, Email = @Email, DomaineName = @DomaineName, ProfilId = @ProfilId WHERE Id = @Id", connection))
                 {
                     command.Parameters.AddWithValue("@Id", id);
                     command.Parameters.AddWithValue("@ProfilId", updatedProfil.ProfilId);
@@ -192,8 +195,7 @@ namespace VotreNamespace.Controllers
                     command.Parameters.AddWithValue("@Youtube", updatedProfil.Youtube);
                     command.Parameters.AddWithValue("@Tiktok", updatedProfil.Tiktok);
                     command.Parameters.AddWithValue("@Email", updatedProfil.Email);
-
-
+                    command.Parameters.AddWithValue("@DomaineName", updatedProfil.DomaineName);
                     int rowsAffected = command.ExecuteNonQuery();
 
                     if (rowsAffected > 0)

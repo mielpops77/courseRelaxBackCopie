@@ -17,6 +17,8 @@ public class AuthController : ControllerBase
         _userManager = userManager;
         _signInManager = signInManager;
     }
+
+    
    [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
     {
