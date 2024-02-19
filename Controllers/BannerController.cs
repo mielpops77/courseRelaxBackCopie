@@ -166,11 +166,11 @@ namespace British_Kingdom_back.Controllers
         public async Task<IActionResult> GetAllBannerSection()
         {
 
-            var id = "";
+            var profilId = "";
 
-            if (HttpContext.Request.Query.ContainsKey("id"))
+            if (HttpContext.Request.Query.ContainsKey("profilId"))
             {
-                id = HttpContext.Request.Query["id"].ToString();
+                profilId = HttpContext.Request.Query["profilId"].ToString();
             }
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
             var bannerSections = new List<BannerSection>();
@@ -179,9 +179,9 @@ namespace British_Kingdom_back.Controllers
             {
                 await connection.OpenAsync();
 
-                using (var command = new SqlCommand("SELECT * FROM BannerSection WHERE Id = @Id", connection))
+                using (var command = new SqlCommand("SELECT * FROM BannerSection WHERE profilId = @profilId", connection))
                 {
-                    command.Parameters.AddWithValue("@Id", id);
+                    command.Parameters.AddWithValue("@profilId", profilId);
                     using (var reader = await command.ExecuteReaderAsync())
                     {
                         while (reader.Read())
@@ -194,7 +194,7 @@ namespace British_Kingdom_back.Controllers
 
                             var bannerSection = new BannerSection
                             {
-                                ProfilId = reader.IsDBNull(reader.GetOrdinal("ProfilId")) ? 0 : reader.GetInt32(reader.GetOrdinal("ProfilId")),
+                                // ProfilId = reader.IsDBNull(reader.GetOrdinal("ProfilId")) ? 0 : reader.GetInt32(reader.GetOrdinal("ProfilId")),
                                 BannerImages = bannerImagesArray,
                                 MaleDescription = GetStringOrNull(reader, "MaleDescription"),
                                 KittenDescription = GetStringOrNull(reader, "KittenDescription"),
@@ -308,10 +308,8 @@ namespace British_Kingdom_back.Controllers
 
 
         [HttpPut]
-        public IActionResult UpdateBannerSection([FromQuery] int id, [FromBody] BannerSection updatedBannerSection)
+        public IActionResult UpdateBannerSection([FromQuery] int profilId, [FromBody] BannerSection updatedBannerSection)
         {
-
-            Console.WriteLine($"idddddd: {id}");
 
             if (updatedBannerSection == null)
             {
@@ -324,11 +322,10 @@ namespace British_Kingdom_back.Controllers
             {
                 connection.Open();
 
-                using (var command = new SqlCommand("UPDATE BannerSection SET BannerImages = @BannerImages, ProfilId = @ProfilId, MaleDescription = @MaleDescription, KittenDescription = @KittenDescription, FemaleDescription = @FemaleDescription, TitleCard1 = @TitleCard1, TitleCard2 = @TitleCard2, TitleCard3 = @TitleCard3, TitleFontStyleCard = @TitleFontStyleCard, TitleColorCard = @TitleColorCard, TextFontStyleCard = @TextFontStyleCard, TextColorCard = @TextColorCard, BackgroundColorCard = @BackgroundColorCard, Title = @Title, Subtitle = @Subtitle, MaleImg = @MaleImg, KittenImg = @KittenImg, FemaleImg = @FemaleImg, TitleFontSize = @TitleFontSize, TitleFontStyle = @TitleFontStyle, TitleFontFamily = @TitleFontFamily, SubtitleFontSize = @SubtitleFontSize, SubtitleFontStyle = @SubtitleFontStyle, SubtitleFontFamily = @SubtitleFontFamily, ColorHeader=@ColorHeader, TitleColor = @TitleColor, SubtitleColor=@SubtitleColor, Menu = @Menu, ColorMenu = @ColorMenu, HoverColorMenu = @HoverColorMenu, FontStyleMenu = @FontStyleMenu, ColorFooter = @ColorFooter, Favicon = @Favicon, TitlePageMales = @TitlePageMales, TitleFontStylePageMales = @TitleFontStylePageMales, TitleColorPageMales = @TitleColorPageMales, TextPageMales = @TextPageMales, TextFontStylePageMales = @TextFontStylePageMales, TextColorPageMales = @TextColorPageMales, BordureColorPageMales = @BordureColorPageMales, TitlePageFemelles = @TitlePageFemelles, TitleFontStylePageFemelles = @TitleFontStylePageFemelles, TitleColorPageFemelles = @TitleColorPageFemelles, TextPageFemelles = @TextPageFemelles, TextFontStylePageFemelles = @TextFontStylePageFemelles, TextColorPageFemelles = @TextColorPageFemelles, BordureColorPageFemelles = @BordureColorPageFemelles, TitleFontStylePageChatons = @TitleFontStylePageChatons, TitleColorPageChatons = @TitleColorPageChatons, Info1FontStylePageChatons = @Info1FontStylePageChatons, Info1ColorPageChatons = @Info1ColorPageChatons, Info2FontStylePageChatons = @Info2FontStylePageChatons, Info2ColorPageChatons = @Info2ColorPageChatons, Info3FontStylePageChatons = @Info3FontStylePageChatons, Info3ColorPageChatons = @Info3ColorPageChatons, BordureColorPageChatons = @BordureColorPageChatons, ButtonColorPageChatons = @ButtonColorPageChatons, ButtonTextColorPageChatons = @ButtonTextColorPageChatons, ButtonTextFontStylePageChatons = @ButtonTextFontStylePageChatons, TextPageContact = @TextPageContact, TextPageCondition = @TextPageCondition, TitlePagelivreDor = @TitlePagelivreDor, TitleFontStylePagelivreDor = @TitleFontStylePagelivreDor, TitleColorPagelivreDor = @TitleColorPagelivreDor, ButtonColorPagelivreDor = @ButtonColorPagelivreDor, ButtonTextColorPagelivreDor = @ButtonTextColorPagelivreDor, ButtonTextFontStylePagelivreDor = @ButtonTextFontStylePagelivreDor, TitleFontStylePagechatProfil = @TitleFontStylePagechatProfil, TitleColorPagechatProfil = @TitleColorPagechatProfil, TextFontStylePagechatProfil = @TextFontStylePagechatProfil, TextColorPagechatProfil = @TextColorPagechatProfil, ButtonColorPagechatProfil = @ButtonColorPagechatProfil, ButtonTextColorPagechatProfil = @ButtonTextColorPagechatProfil, ButtonTextFontStylePagechatProfil = @ButtonTextFontStylePagechatProfil, BordureColorPagechatProfil = @BordureColorPagechatProfil, BagroundColorPagechatProfil = @BagroundColorPagechatProfil, TitleFontStylePagechatonProfil = @TitleFontStylePagechatonProfil, TitleColorPagechatonProfil = @TitleColorPagechatonProfil, TextFontStylePagechatonProfil = @TextFontStylePagechatonProfil, TextColorPagechatonProfil = @TextColorPagechatonProfil, StatusNameFontStylePagechatonProfil = @StatusNameFontStylePagechatonProfil, StatusNameColorPagechatonProfil = @StatusNameColorPagechatonProfil, BreedFontStylePagechatonProfil = @BreedFontStylePagechatonProfil, BreedColorPagechatonProfil = @BreedColorPagechatonProfil, BackgroundColorBreedPagechatonProfil = @BackgroundColorBreedPagechatonProfil,TextPageAccueil = @TextPageAccueil, TextFontStylePageAccueil = @TextFontStylePageAccueil, TextColorPageAccueil = @TextColorPageAccueil WHERE Id = @Id", connection))
+                using (var command = new SqlCommand("UPDATE BannerSection SET BannerImages = @BannerImages, ProfilId = @ProfilId, MaleDescription = @MaleDescription, KittenDescription = @KittenDescription, FemaleDescription = @FemaleDescription, TitleCard1 = @TitleCard1, TitleCard2 = @TitleCard2, TitleCard3 = @TitleCard3, TitleFontStyleCard = @TitleFontStyleCard, TitleColorCard = @TitleColorCard, TextFontStyleCard = @TextFontStyleCard, TextColorCard = @TextColorCard, BackgroundColorCard = @BackgroundColorCard, Title = @Title, Subtitle = @Subtitle, MaleImg = @MaleImg, KittenImg = @KittenImg, FemaleImg = @FemaleImg, TitleFontSize = @TitleFontSize, TitleFontStyle = @TitleFontStyle, TitleFontFamily = @TitleFontFamily, SubtitleFontSize = @SubtitleFontSize, SubtitleFontStyle = @SubtitleFontStyle, SubtitleFontFamily = @SubtitleFontFamily, ColorHeader=@ColorHeader, TitleColor = @TitleColor, SubtitleColor=@SubtitleColor, Menu = @Menu, ColorMenu = @ColorMenu, HoverColorMenu = @HoverColorMenu, FontStyleMenu = @FontStyleMenu, ColorFooter = @ColorFooter, Favicon = @Favicon, TitlePageMales = @TitlePageMales, TitleFontStylePageMales = @TitleFontStylePageMales, TitleColorPageMales = @TitleColorPageMales, TextPageMales = @TextPageMales, TextFontStylePageMales = @TextFontStylePageMales, TextColorPageMales = @TextColorPageMales, BordureColorPageMales = @BordureColorPageMales, TitlePageFemelles = @TitlePageFemelles, TitleFontStylePageFemelles = @TitleFontStylePageFemelles, TitleColorPageFemelles = @TitleColorPageFemelles, TextPageFemelles = @TextPageFemelles, TextFontStylePageFemelles = @TextFontStylePageFemelles, TextColorPageFemelles = @TextColorPageFemelles, BordureColorPageFemelles = @BordureColorPageFemelles, TitleFontStylePageChatons = @TitleFontStylePageChatons, TitleColorPageChatons = @TitleColorPageChatons, Info1FontStylePageChatons = @Info1FontStylePageChatons, Info1ColorPageChatons = @Info1ColorPageChatons, Info2FontStylePageChatons = @Info2FontStylePageChatons, Info2ColorPageChatons = @Info2ColorPageChatons, Info3FontStylePageChatons = @Info3FontStylePageChatons, Info3ColorPageChatons = @Info3ColorPageChatons, BordureColorPageChatons = @BordureColorPageChatons, ButtonColorPageChatons = @ButtonColorPageChatons, ButtonTextColorPageChatons = @ButtonTextColorPageChatons, ButtonTextFontStylePageChatons = @ButtonTextFontStylePageChatons, TextPageContact = @TextPageContact, TextPageCondition = @TextPageCondition, TitlePagelivreDor = @TitlePagelivreDor, TitleFontStylePagelivreDor = @TitleFontStylePagelivreDor, TitleColorPagelivreDor = @TitleColorPagelivreDor, ButtonColorPagelivreDor = @ButtonColorPagelivreDor, ButtonTextColorPagelivreDor = @ButtonTextColorPagelivreDor, ButtonTextFontStylePagelivreDor = @ButtonTextFontStylePagelivreDor, TitleFontStylePagechatProfil = @TitleFontStylePagechatProfil, TitleColorPagechatProfil = @TitleColorPagechatProfil, TextFontStylePagechatProfil = @TextFontStylePagechatProfil, TextColorPagechatProfil = @TextColorPagechatProfil, ButtonColorPagechatProfil = @ButtonColorPagechatProfil, ButtonTextColorPagechatProfil = @ButtonTextColorPagechatProfil, ButtonTextFontStylePagechatProfil = @ButtonTextFontStylePagechatProfil, BordureColorPagechatProfil = @BordureColorPagechatProfil, BagroundColorPagechatProfil = @BagroundColorPagechatProfil, TitleFontStylePagechatonProfil = @TitleFontStylePagechatonProfil, TitleColorPagechatonProfil = @TitleColorPagechatonProfil, TextFontStylePagechatonProfil = @TextFontStylePagechatonProfil, TextColorPagechatonProfil = @TextColorPagechatonProfil, StatusNameFontStylePagechatonProfil = @StatusNameFontStylePagechatonProfil, StatusNameColorPagechatonProfil = @StatusNameColorPagechatonProfil, BreedFontStylePagechatonProfil = @BreedFontStylePagechatonProfil, BreedColorPagechatonProfil = @BreedColorPagechatonProfil, BackgroundColorBreedPagechatonProfil = @BackgroundColorBreedPagechatonProfil,TextPageAccueil = @TextPageAccueil, TextFontStylePageAccueil = @TextFontStylePageAccueil, TextColorPageAccueil = @TextColorPageAccueil WHERE ProfilId = @ProfilId", connection))
                 {
 
-                    command.Parameters.AddWithValue("@Id", id);
-                    command.Parameters.AddWithValue("@ProfilId", updatedBannerSection.ProfilId);
+                     command.Parameters.AddWithValue("@ProfilId", profilId);
                     command.Parameters.AddWithValue("@BannerImages", string.Join(",", updatedBannerSection.BannerImages!));
                     command.Parameters.AddWithValue("@MaleDescription", updatedBannerSection.MaleDescription);
                     command.Parameters.AddWithValue("@KittenDescription", updatedBannerSection.KittenDescription);
