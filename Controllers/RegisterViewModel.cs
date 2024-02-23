@@ -11,15 +11,18 @@ public class AuthController : ControllerBase
 {
     private readonly UserManager<IdentityUser> _userManager;
     private readonly SignInManager<IdentityUser> _signInManager;
+    private readonly IEmailService _emailService; // Ajoutez cette ligne pour injecter le service d'e-mails
 
-    public AuthController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+    public AuthController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IEmailService emailService)
     {
         _userManager = userManager;
         _signInManager = signInManager;
+        _emailService = emailService; // Initialisez le service d'e-mails
+
     }
 
-    
-   [HttpPost("register")]
+
+    [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterViewModel model)
     {
         if (model == null)
@@ -185,5 +188,107 @@ public class AuthController : ControllerBase
         }
     }
 
+    public class ForgotPasswordViewModel
+    {
+        public string Email { get; set; }
+    }
+
+
+
+
+
+    [HttpPost("forgotpassword")]
+    public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordViewModel model)
+    {
+        if (model == null)
+        {
+            return BadRequest(new { message = "Invalid model data." });
+        }
+
+        try
+        {
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                // L'utilisateur avec cet e-mail n'existe pas
+                return BadRequest(new { message = "User not found." });
+            }
+
+            // Générez un jeton de réinitialisation de mot de passe
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            // Créez l'URL de réinitialisation du mot de passe
+            var resetUrl = $"http://localhost:65255/resetpassword?email={model.Email}&token={token}";
+
+
+            // Envoyez l'e-mail de réinitialisation du mot de passe à l'utilisateur
+            var emailSent = await _emailService.SendPasswordResetEmail(model.Email, resetUrl);
+
+            if (emailSent)
+            {
+                // L'e-mail de réinitialisation du mot de passe a été envoyé avec succès
+                return Ok(new { message = "Password reset email sent successfully." });
+            }
+            else
+            {
+                // Échec de l'envoi de l'e-mail de réinitialisation du mot de passe
+                return StatusCode(500, new { message = "Failed to send password reset email." });
+            }
+        }
+        catch (Exception ex)
+        {
+            // Une exception s'est produite lors de l'envoi de l'e-mail. Retournez l'erreur.
+            return StatusCode(500, new { message = "Internal server error.", error = ex.Message });
+        }
+    }
+
+    public class ResetPasswordViewModel
+    {
+        public string Email { get; set; }
+        public string Token { get; set; }
+        public string NewPassword { get; set; }
+    }
+
+
+
+    [HttpPost("resetpassword")]
+    public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordViewModel model)
+    {
+        if (model == null)
+        {
+            return BadRequest(new { message = "Invalid model data." });
+        }
+
+        try
+        {
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                // L'utilisateur avec cet e-mail n'existe pas
+                return BadRequest(new { message = "User not found." });
+            }
+
+            // Réinitialiser le mot de passe pour l'utilisateur avec le token fourni
+            var result = await _userManager.ResetPasswordAsync(user, model.Token, model.NewPassword);
+
+            if (result.Succeeded)
+            {
+                // Le mot de passe a été réinitialisé avec succès
+                return Ok(new { message = "Password reset successfully." });
+            }
+            else
+            {
+                // La réinitialisation du mot de passe a échoué. Retournez les erreurs.
+                return BadRequest(new { message = "Failed to reset password.", errors = result.Errors });
+            }
+        }
+        catch (Exception ex)
+        {
+            // Une exception s'est produite lors de la réinitialisation du mot de passe. Retournez l'erreur.
+            return StatusCode(500, new { message = "Internal server error.", error = ex.Message });
+        }
+    }
 
 }
+
+

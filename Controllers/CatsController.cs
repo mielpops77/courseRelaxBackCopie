@@ -86,8 +86,6 @@ namespace British_Kingdom_back.Controllers
                                 Pedigree = reader.GetString(reader.GetOrdinal("Pedigree")),
                                 Images = reader.GetString(reader.GetOrdinal("Images")).Split(',')
                             };
-                            Console.WriteLine("catttttt");
-                            Console.WriteLine(cat);
                             cats.Add(cat);
                         }
                     }

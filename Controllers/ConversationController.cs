@@ -31,7 +31,7 @@ namespace VotreProjet.Controllers
             {
                 await connection.OpenAsync();
 
-                using (var command = new SqlCommand("SELECT * FROM Conversation WHERE IdProfil = @ProfilId AND IdTicket = @TicketId ORDER BY DateCrea ASC", connection))
+                using (var command = new SqlCommand("SELECT * FROM Conversation WHERE ProfilId = @ProfilId AND IdTicket = @TicketId ORDER BY DateCrea ASC", connection))
                 {
                     command.Parameters.AddWithValue("@ProfilId", profilId);
                     command.Parameters.AddWithValue("@TicketId", ticketId);
@@ -43,7 +43,7 @@ namespace VotreProjet.Controllers
                             var conversation = new Conversation
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                                IdProfil = reader.GetInt32(reader.GetOrdinal("IdProfil")),
+                                ProfilId = reader.GetInt32(reader.GetOrdinal("ProfilId")),
                                 IdTicket = reader.GetInt32(reader.GetOrdinal("IdTicket")),
                                 DateCrea = reader.GetDateTime(reader.GetOrdinal("DateCrea")),
                                 Message = reader.GetString(reader.GetOrdinal("Message")),
@@ -84,7 +84,7 @@ namespace VotreProjet.Controllers
                             var conversation = new Conversation
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                                IdProfil = reader.GetInt32(reader.GetOrdinal("IdProfil")),
+                                ProfilId = reader.GetInt32(reader.GetOrdinal("ProfilId")),
                                 IdTicket = reader.GetInt32(reader.GetOrdinal("IdTicket")),
                                 DateCrea = reader.GetDateTime(reader.GetOrdinal("DateCrea")),
                                 Message = reader.GetString(reader.GetOrdinal("Message")),
@@ -120,9 +120,9 @@ namespace VotreProjet.Controllers
             {
                 await connection.OpenAsync();
 
-                using (var command = new SqlCommand("INSERT INTO Conversation (IdProfil, IdTicket, DateCrea, Message, Admin, Image, VueUser, VueAdmin) OUTPUT INSERTED.Id VALUES (@IdProfil, @IdTicket, @DateCrea, @Message, @Admin, @Image, @VueUser, @VueAdmin);", connection))
+                using (var command = new SqlCommand("INSERT INTO Conversation (ProfilId, IdTicket, DateCrea, Message, Admin, Image, VueUser, VueAdmin) OUTPUT INSERTED.Id VALUES (@ProfilId, @IdTicket, @DateCrea, @Message, @Admin, @Image, @VueUser, @VueAdmin);", connection))
                 {
-                    command.Parameters.AddWithValue("@IdProfil", conversation.IdProfil);
+                    command.Parameters.AddWithValue("@ProfilId", conversation.ProfilId);
                     command.Parameters.AddWithValue("@IdTicket", conversation.IdTicket);
                     command.Parameters.AddWithValue("@DateCrea", DateTime.Now);
                     command.Parameters.AddWithValue("@Message", conversation.Message);

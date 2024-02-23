@@ -42,6 +42,22 @@
               "target": "Package",
               "version": "[12.19.1, )"
             },
+            "FluentEmail.Mailgun": {
+              "target": "Package",
+              "version": "[3.0.2, )"
+            },
+            "Google.Apis.Gmail.v1": {
+              "target": "Package",
+              "version": "[1.66.0.3287, )"
+            },
+            "Google.Apis.Oauth2.v2": {
+              "target": "Package",
+              "version": "[1.66.0.1869, )"
+            },
+            "MailKit": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[8.0.0, )"

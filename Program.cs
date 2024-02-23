@@ -66,12 +66,11 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
-
+// Add email service
+builder.Services.AddSingleton<IEmailService, EmailService>();
 
 // Add Azure Storage configuration
 var azureStorageSettings = configuration.GetSection("AzureStorage").Get<AzureStorageSettings>();
-Console.WriteLine($"AccountName: {azureStorageSettings.AccountName}");
-Console.WriteLine($"AccountKey: {azureStorageSettings.AccountKey}");
 builder.Services.AddSingleton(azureStorageSettings);
 
 // Add Azure Blob Service client
