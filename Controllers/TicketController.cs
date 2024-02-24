@@ -35,9 +35,9 @@ namespace VotreProjet.Controllers
 
                 if (profilId.HasValue)
                 {
-                    query = "SELECT * FROM Ticket WHERE ProfilId = @ProfilId ORDER BY CreationDate DESC";
+                    query = "SELECT * FROM Ticket WHERE UniqueProfilId = @UniqueProfilId ORDER BY CreationDate DESC";
                     command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@ProfilId", profilId.Value);
+                    command.Parameters.AddWithValue("@UniqueProfilId", profilId.Value);
                 }
                 else
                 {
@@ -54,7 +54,7 @@ namespace VotreProjet.Controllers
                             var ticket = new Ticket
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                                ProfilId = reader.GetInt32(reader.GetOrdinal("ProfilId")),
+                                UniqueProfilId = reader.GetInt32(reader.GetOrdinal("UniqueProfilId")),
                                 Subject = reader.GetString(reader.GetOrdinal("Subject")),
                                 CreationDate = reader.GetDateTimeOffset(reader.GetOrdinal("CreationDate")),
                                 Message = reader.GetString(reader.GetOrdinal("Message")),
@@ -93,7 +93,7 @@ namespace VotreProjet.Controllers
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             IdTicket = reader.GetInt32(reader.GetOrdinal("IdTicket")),
-                            ProfilId = reader.GetInt32(reader.GetOrdinal("ProfilId")),
+                            UniqueProfilId = reader.GetInt32(reader.GetOrdinal("UniqueProfilId")),
                             DateCrea = reader.GetDateTime(reader.GetOrdinal("DateCrea")),
                             Message = reader.GetString(reader.GetOrdinal("Message")),
                             Admin = reader.GetBoolean(reader.GetOrdinal("Admin")),
@@ -112,7 +112,7 @@ namespace VotreProjet.Controllers
 
         private async Task<Profil> LoadProfilForTicketAsync(int ticketId, SqlConnection connection)
         {
-            using (var command = new SqlCommand("SELECT p.* FROM Profil p INNER JOIN Ticket t ON p.Id = t.ProfilId WHERE t.Id = @TicketId", connection))
+            using (var command = new SqlCommand("SELECT p.* FROM Profil p INNER JOIN Ticket t ON p.Id = t.UniqueProfilId WHERE t.Id = @TicketId", connection))
             {
                 command.Parameters.AddWithValue("@TicketId", ticketId);
 
@@ -166,7 +166,7 @@ namespace VotreProjet.Controllers
                             var ticket = new Ticket
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                                ProfilId = reader.GetInt32(reader.GetOrdinal("ProfilId")),
+                                UniqueProfilId = reader.GetInt32(reader.GetOrdinal("UniqueProfilId")),
                                 Subject = reader.GetString(reader.GetOrdinal("Subject")),
                                 CreationDate = reader.GetDateTime(reader.GetOrdinal("CreationDate")),
                                 Message = reader.GetString(reader.GetOrdinal("Message")),
@@ -202,9 +202,9 @@ namespace VotreProjet.Controllers
                 return BadRequest("Ticket data is missing.");
             }
 
-            if (ticket.ProfilId <= 0)
+            if (ticket.UniqueProfilId <= 0)
             {
-                return BadRequest("Invalid value for ProfilId.");
+                return BadRequest("Invalid value for UniqueProfilId.");
             }
 
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
@@ -219,9 +219,9 @@ namespace VotreProjet.Controllers
                     try
                     {
                         // 1. Insérer le ticket
-                        using (var command = new SqlCommand("INSERT INTO Ticket (ProfilId, Subject, CreationDate, Message, Status, Image) OUTPUT INSERTED.Id VALUES (@ProfilId, @Subject, @CreationDate, @Message, @Status, @Image);", connection, transaction))
+                        using (var command = new SqlCommand("INSERT INTO Ticket (UniqueProfilId, Subject, CreationDate, Message, Status, Image) OUTPUT INSERTED.Id VALUES (@UniqueProfilId, @Subject, @CreationDate, @Message, @Status, @Image);", connection, transaction))
                         {
-                            command.Parameters.AddWithValue("@ProfilId", ticket.ProfilId);
+                            command.Parameters.AddWithValue("@UniqueProfilId", ticket.UniqueProfilId);
                             command.Parameters.AddWithValue("@Subject", ticket.Subject);
                             command.Parameters.AddWithValue("@CreationDate", DateTime.Now);
                             command.Parameters.AddWithValue("@Message", ticket.Message);
@@ -245,10 +245,10 @@ namespace VotreProjet.Controllers
                         {
                             foreach (var conversation in ticket.Conversations)
                             {
-                                using (var conversationCommand = new SqlCommand("INSERT INTO Conversation (IdTicket, ProfilId, DateCrea, Message, Admin, Image, VueUser, VueAdmin) VALUES (@IdTicket, @ProfilId, @DateCrea, @Message, @Admin, @Image, @VueUser, @VueAdmin);", connection, transaction))
+                                using (var conversationCommand = new SqlCommand("INSERT INTO Conversation (IdTicket, UniqueProfilId, DateCrea, Message, Admin, Image, VueUser, VueAdmin) VALUES (@IdTicket, @UniqueProfilId, @DateCrea, @Message, @Admin, @Image, @VueUser, @VueAdmin);", connection, transaction))
                                 {
                                     conversationCommand.Parameters.AddWithValue("@IdTicket", newTicketId);
-                                    conversationCommand.Parameters.AddWithValue("@ProfilId", conversation.ProfilId);
+                                    conversationCommand.Parameters.AddWithValue("@UniqueProfilId", conversation.UniqueProfilId);
                                     conversationCommand.Parameters.AddWithValue("@DateCrea", DateTime.Now);
                                     conversationCommand.Parameters.AddWithValue("@Message", conversation.Message);
                                     conversationCommand.Parameters.AddWithValue("@Admin", conversation.Admin);

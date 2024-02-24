@@ -6,7 +6,7 @@ namespace British_Kingdom_back.Models
     {
         public int Id { get; set; }
         public int IdTicket { get; set; }
-        public int ProfilId { get; set; }
+        public int UniqueProfilId { get; set; }
         public DateTime DateCrea { get; set; }
         public string Message { get; set; }
         public bool Admin { get; set; }

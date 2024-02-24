@@ -6,7 +6,7 @@ namespace British_Kingdom_back.Models
     public class Ticket
     {
         public int Id { get; set; }
-        public int ProfilId { get; set; }
+        public int UniqueProfilId { get; set; }
         public string Subject { get; set; }
         // public DateTime CreationDate { get; set; }
         public DateTimeOffset CreationDate { get; set; }
