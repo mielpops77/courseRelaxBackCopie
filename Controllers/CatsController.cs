@@ -181,7 +181,7 @@ namespace British_Kingdom_back.Controllers
                 using (var command = new SqlCommand(
                     "UPDATE Cats " + "SET Name = @Name, ProfilId = @ProfilId, Robe = @Robe, EyeColor = @EyeColor, Sex = @Sex, Breed = @Breed, " +
                     "DateOfBirth = @DateOfBirth, UrlProfil = @UrlProfil, UrlProfilMother = @UrlProfilMother, " +
-                    "UrlProfilFather = @UrlProfilFather, sailliesExterieures = @sailliesExterieures, Pedigree = @Pedigree," + 
+                    "UrlProfilFather = @UrlProfilFather, sailliesExterieures = @sailliesExterieures, Pedigree = @Pedigree," +
                     "Images = @Images WHERE Id = @Id", connection))
                 {
                     // Ajoutez les paramètres comme avant
@@ -200,18 +200,25 @@ namespace British_Kingdom_back.Controllers
                     command.Parameters.AddWithValue("@Pedigree", cat.Pedigree);
                     command.Parameters.AddWithValue("@Images", string.Join(",", cat.Images ?? Array.Empty<string>()));
 
-                    int rowsAffected = command.ExecuteNonQuery();
-
-                    if (rowsAffected > 0)
+                    try
                     {
-                        // Code pour mettre à jour les informations de la portée si le chat est le père ou la mère d'une portée
-                        UpdatePorteeInformation(id, cat.UrlProfil, connection);
+                        int rowsAffected = command.ExecuteNonQuery();
 
-                        return Ok(new { message = "Chat mis à jour avec succès" });
+                        if (rowsAffected > 0)
+                        {
+                            // Code pour mettre à jour les informations de la portée si le chat est le père ou la mère d'une portée
+                            UpdatePorteeInformation(id, cat.UrlProfil, connection);
+
+                            return Ok(new { message = "Chat mis à jour avec succès" });
+                        }
+                        else
+                        {
+                            return NotFound(new { message = "Chat non trouvé" });
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        return NotFound(new { message = "Chat non trouvé" });
+                        return BadRequest(new { message = "Une erreur s'est produite lors de la mise à jour du chat", error = ex.Message });
                     }
                 }
             }
