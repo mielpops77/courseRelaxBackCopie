@@ -320,13 +320,14 @@ public async Task<IActionResult> GetPorteesByParentId(int parentId)
                     {
                         // 1. Mettre à jour la portée
                         using (var command = new SqlCommand(
-                            "UPDATE Portee SET IdPapa = @IdPapa, IdMaman = @IdMaman, DateOfBirth = @DateOfBirth, UrlProfilFather = @UrlProfilFather, UrlProfilMother = @UrlProfilMother, Name = @Name, Disponible = @Disponible, ProfilId = @ProfilId WHERE Id = @Id", connection, transaction))
+                            "UPDATE Portee SET IdPapa = @IdPapa, IdMaman = @IdMaman, DateOfSell = @DateOfSell,  DateOfBirth = @DateOfBirth, UrlProfilFather = @UrlProfilFather, UrlProfilMother = @UrlProfilMother, Name = @Name, Disponible = @Disponible, ProfilId = @ProfilId WHERE Id = @Id", connection, transaction))
                         {
                             command.Parameters.AddWithValue("@Id", id);
                             command.Parameters.AddWithValue("@IdPapa", portee.IdPapa);
                             command.Parameters.AddWithValue("@IdMaman", portee.IdMaman);
                             command.Parameters.AddWithValue("@Name", portee.Name);
                             command.Parameters.AddWithValue("@DateOfBirth", portee.DateOfBirth);
+                            command.Parameters.AddWithValue("@DateOfSell", portee.DateOfSell);
                             command.Parameters.AddWithValue("@ProfilId", portee.ProfilId);
                             command.Parameters.AddWithValue("@UrlProfilFather", portee.UrlProfilFather);
                             command.Parameters.AddWithValue("@UrlProfilMother", portee.UrlProfilMother);

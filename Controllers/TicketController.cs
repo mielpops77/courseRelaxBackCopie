@@ -21,8 +21,10 @@ namespace VotreProjet.Controllers
             _configuration = configuration;
         }
         [HttpGet]
-        public async Task<IActionResult> GetTickets([FromQuery] int? profilId)
+        public async Task<IActionResult> GetTickets([FromQuery] int? uniqueProfilId)
         {
+
+            Console.WriteLine("zdzdzdzd", uniqueProfilId);
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
             var tickets = new List<Ticket>();
 
@@ -33,11 +35,11 @@ namespace VotreProjet.Controllers
                 string query;
                 SqlCommand command;
 
-                if (profilId.HasValue)
+                if (uniqueProfilId.HasValue)
                 {
                     query = "SELECT * FROM Ticket WHERE UniqueProfilId = @UniqueProfilId ORDER BY CreationDate DESC";
                     command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@UniqueProfilId", profilId.Value);
+                    command.Parameters.AddWithValue("@UniqueProfilId", uniqueProfilId.Value);
                 }
                 else
                 {

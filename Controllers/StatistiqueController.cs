@@ -58,7 +58,7 @@ namespace British_Kingdom_back.Controllers
             return Ok();
         }
 
- [HttpGet("{profilId}")]
+      [HttpGet("{profilId}")]
 public async Task<IActionResult> GetStats(int profilId)
 {
     var connectionString = _configuration.GetConnectionString("DefaultConnection");
@@ -72,10 +72,18 @@ public async Task<IActionResult> GetStats(int profilId)
         await connection.OpenAsync();
 
         // Récupérer les statistiques pour la ProfilId spécifiée
-        var query = "SELECT SUM(NbrVisitesTotal) AS NbrVisitesTotal, SUM(NbrVisitesJour) AS NbrVisitesJour FROM Statistique WHERE ProfilId = @ProfilId";
+        var query = @"SELECT 
+                        SUM(NbrVisitesTotal) AS NbrVisitesTotal, 
+                        (SELECT TOP 1 NbrVisitesJour 
+                         FROM Statistique 
+                         WHERE ProfilId = @ProfilId AND DateVisite = @DateVisite) AS NbrVisitesJour 
+                      FROM Statistique 
+                      WHERE ProfilId = @ProfilId";
+        
         using (var command = new SqlCommand(query, connection))
         {
             command.Parameters.AddWithValue("@ProfilId", profilId);
+            command.Parameters.AddWithValue("@DateVisite", today); // Filtre pour la date d'aujourd'hui
 
             using (var reader = await command.ExecuteReaderAsync())
             {
@@ -98,29 +106,31 @@ public async Task<IActionResult> GetStats(int profilId)
     }
 }
 
-private async Task UpdateVisitsIfNeeded(string connectionString, int profilId, DateTime currentDate)
-{
-    using (var connection = new SqlConnection(connectionString))
-    {
-        await connection.OpenAsync();
 
-        var query = "SELECT NbrVisitesJour FROM Statistique WHERE ProfilId = @ProfilId AND DateVisite = @CurrentDate";
-        using (var command = new SqlCommand(query, connection))
+
+        private async Task UpdateVisitsIfNeeded(string connectionString, int profilId, DateTime currentDate)
         {
-            command.Parameters.AddWithValue("@ProfilId", profilId);
-            command.Parameters.AddWithValue("@CurrentDate", currentDate);
-
-            var result = await command.ExecuteScalarAsync();
-
-            // Si aucune entrée n'existe pour cette ProfilId et la date actuelle, insérer une nouvelle entrée avec NbrVisitesJour initialisé à 0
-            if (result == null || result == DBNull.Value)
+            using (var connection = new SqlConnection(connectionString))
             {
-                query = "INSERT INTO Statistique (ProfilId, NbrVisitesTotal, NbrVisitesJour, DateVisite) VALUES (@ProfilId, 0, 0, @CurrentDate)";
-                command.CommandText = query;
-                await command.ExecuteNonQueryAsync();
+                await connection.OpenAsync();
+
+                var query = "SELECT NbrVisitesJour FROM Statistique WHERE ProfilId = @ProfilId AND DateVisite = @CurrentDate";
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ProfilId", profilId);
+                    command.Parameters.AddWithValue("@CurrentDate", currentDate);
+
+                    var result = await command.ExecuteScalarAsync();
+
+                    // Si aucune entrée n'existe pour cette ProfilId et la date actuelle, insérer une nouvelle entrée avec NbrVisitesJour initialisé à 0
+                    if (result == null || result == DBNull.Value)
+                    {
+                        query = "INSERT INTO Statistique (ProfilId, NbrVisitesTotal, NbrVisitesJour, DateVisite) VALUES (@ProfilId, 0, 0, @CurrentDate)";
+                        command.CommandText = query;
+                        await command.ExecuteNonQueryAsync();
+                    }
+                }
             }
         }
-    }
-}
     }
 }
