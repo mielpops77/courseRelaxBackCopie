@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("British-Kingdom-back")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+92e4381585a678a1aab9ae65c17da1d9649e1666")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eae4d2a68fc6316407c7199ebffab0278f6d551a")]
 [assembly: System.Reflection.AssemblyProductAttribute("British-Kingdom-back")]
 [assembly: System.Reflection.AssemblyTitleAttribute("British-Kingdom-back")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -289,6 +289,35 @@ public class AuthController : ControllerBase
         }
     }
 
+
+    [HttpDelete("users/{userId}")]
+    public async Task<IActionResult> DeleteUser(string userId)
+    {
+        try
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound(new { message = "User not found." });
+            }
+
+            var result = await _userManager.DeleteAsync(user);
+            if (result.Succeeded)
+            {
+                return Ok(new { message = "User deleted successfully." });
+            }
+            else
+            {
+                return BadRequest(new { message = "Failed to delete user.", errors = result.Errors });
+            }
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "Internal server error.", error = ex.Message });
+        }
+    }
+
+
 }
 
 
