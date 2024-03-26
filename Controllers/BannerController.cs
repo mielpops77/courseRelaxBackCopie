@@ -192,7 +192,7 @@ namespace British_Kingdom_back.Controllers
 
                             var bannerSection = new BannerSection
                             {
-                                // ProfilId = reader.IsDBNull(reader.GetOrdinal("ProfilId")) ? 0 : reader.GetInt32(reader.GetOrdinal("ProfilId")),
+                                ProfilId = reader.IsDBNull(reader.GetOrdinal("ProfilId")) ? 0 : reader.GetInt32(reader.GetOrdinal("ProfilId")),
                                 BannerImages = bannerImagesArray,
                                 MaleDescription = GetStringOrNull(reader, "MaleDescription"),
                                 KittenDescription = GetStringOrNull(reader, "KittenDescription"),
