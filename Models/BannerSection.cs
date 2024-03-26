@@ -39,11 +39,11 @@ public class BannerSection
     //Header
     public string? Title { get; set; }
     public int? TitleFontSize { get; set; }
-    public string? TitleFontStyle { get; set; }
+    // public string? TitleFontStyle { get; set; }
     public string? TitleFontFamily { get; set; }
     public string? Subtitle { get; set; }
     public int? SubtitleFontSize { get; set; }
-    public string? SubtitleFontStyle { get; set; }
+    // public string? SubtitleFontStyle { get; set; }
     public string? SubtitleFontFamily { get; set; }
 
     public string? ColorHeader { get; set; }
