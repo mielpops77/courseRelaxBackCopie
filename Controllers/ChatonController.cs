@@ -48,7 +48,7 @@ namespace British_Kingdom_back.Controllers
                                 ProfilId = reader.GetInt32(reader.GetOrdinal("ProfilId")),
                                 Sex = reader.GetString(reader.GetOrdinal("Sex")),
                                 Status = reader.GetString(reader.GetOrdinal("Status")),
-                                DateOfBirth = reader.GetDateTime(reader.GetOrdinal("DateOfBirth")),
+                                DateOfBirth = reader.GetString(reader.GetOrdinal("DateOfBirth")),
                                 Photos = reader.GetString(reader.GetOrdinal("Photos")).Split(','),
                                 UrlProfil = reader.GetString(reader.GetOrdinal("UrlProfil")),
                                 Robe = reader.GetString(reader.GetOrdinal("Robe")),
@@ -206,7 +206,9 @@ namespace British_Kingdom_back.Controllers
                             createChatonCommand.Parameters.AddWithValue("@Status", newChaton.Status);
                             createChatonCommand.Parameters.AddWithValue("@Photos", string.Join(",", newChaton.Photos));
                             // Convertir la chaîne de date en objet DateTime
-                            createChatonCommand.Parameters.AddWithValue("@DateOfBirth", DateTime.ParseExact(newChaton.DateOfBirth.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture));
+                            // createChatonCommand.Parameters.AddWithValue("@DateOfBirth", DateTime.ParseExact(newChaton.DateOfBirth.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture));
+                            createChatonCommand.Parameters.AddWithValue("@DateOfBirth", newChaton.DateOfBirth);
+                           
                             createChatonCommand.Parameters.AddWithValue("@IdPortee", newChaton.IdPortee);
                             createChatonCommand.Parameters.AddWithValue("@UrlProfil", newChaton.UrlProfil);
                             createChatonCommand.Parameters.AddWithValue("@ProfilId", newChaton.ProfilId);

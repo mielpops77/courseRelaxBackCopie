@@ -84,7 +84,7 @@ namespace British_Kingdom_back.Controllers
                             Sex = reader.GetString(reader.GetOrdinal("Sex")),
                             Status = reader.GetString(reader.GetOrdinal("Status")),
                             Photos = reader.IsDBNull(reader.GetOrdinal("Photos")) ? null : reader.GetString(reader.GetOrdinal("Photos")).Split(','),
-                            DateOfBirth = reader.GetDateTime(reader.GetOrdinal("DateOfBirth")),
+                            DateOfBirth = reader.GetString(reader.GetOrdinal("DateOfBirth")),
                             UrlProfil = reader.GetString(reader.GetOrdinal("UrlProfil")),
                             Robe = reader.GetString(reader.GetOrdinal("Robe")),
                             Breed = reader.GetString(reader.GetOrdinal("Breed")),

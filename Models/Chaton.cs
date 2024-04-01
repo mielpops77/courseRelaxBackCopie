@@ -5,7 +5,7 @@ namespace British_Kingdom_back.Models
         public int Id { get; set; }
         public int IdPortee { get; set; }
         public int ProfilId { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public string  DateOfBirth { get; set; } = string.Empty;
         public string Name { get; set; }
         public string PorteeName { get; set; }
         public string UrlProfil { get; set; } = string.Empty;
