@@ -10,8 +10,8 @@ namespace British_Kingdom_back.Models
         public int Id { get; set; }
         public int IdPapa { get; set; }
         public int IdMaman { get; set; }
-        public string DateOfBirth { get; set; } = string.Empty;
-        public string DateOfSell { get; set; } = string.Empty;
+        public DateTime DateOfBirth { get; set; }
+        public DateTime DateOfSell { get; set; }
 
         public List<Chaton> Chatons { get; set; }
         public int ProfilId { get; set; }
