@@ -52,7 +52,7 @@ namespace VotreProjet.Controllers
                                 VueUser = reader.GetBoolean(reader.GetOrdinal("VueUser")),
                                 VueAdmin = reader.GetBoolean(reader.GetOrdinal("VueAdmin")),
 
-                                
+
                             };
 
                             conversations.Add(conversation);
@@ -115,6 +115,7 @@ namespace VotreProjet.Controllers
             }
 
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
+   
 
             using (var connection = new SqlConnection(connectionString))
             {
@@ -124,7 +125,7 @@ namespace VotreProjet.Controllers
                 {
                     command.Parameters.AddWithValue("@UniqueProfilId", conversation.UniqueProfilId);
                     command.Parameters.AddWithValue("@IdTicket", conversation.IdTicket);
-                    command.Parameters.AddWithValue("@DateCrea", DateTime.Now);
+                    command.Parameters.AddWithValue("@DateCrea", conversation.DateCrea);
                     command.Parameters.AddWithValue("@Message", conversation.Message);
                     command.Parameters.AddWithValue("@Admin", conversation.Admin);
                     command.Parameters.AddWithValue("@Image", conversation.Image);
