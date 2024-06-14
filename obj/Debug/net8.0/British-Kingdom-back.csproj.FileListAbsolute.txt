@@ -277,3 +277,6 @@ C:\Users\amiel\OneDrive\Bureau\Dev\British-Kingdom-back\obj\Debug\net8.0\refint\
 C:\Users\amiel\OneDrive\Bureau\Dev\British-Kingdom-back\obj\Debug\net8.0\British-Kingdom-back.pdb
 C:\Users\amiel\OneDrive\Bureau\Dev\British-Kingdom-back\obj\Debug\net8.0\British-Kingdom-back.genruntimeconfig.cache
 C:\Users\amiel\OneDrive\Bureau\Dev\British-Kingdom-back\obj\Debug\net8.0\ref\British-Kingdom-back.dll
+C:\Users\amiel\OneDrive\Bureau\Dev\British-Kingdom-back\bin\Debug\net8.0\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\amiel\OneDrive\Bureau\Dev\British-Kingdom-back\bin\Debug\net8.0\SixLabors.ImageSharp.dll
+C:\Users\amiel\OneDrive\Bureau\Dev\British-Kingdom-back\bin\Debug\net8.0\SixLabors.ImageSharp.Web.dll

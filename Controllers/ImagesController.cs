@@ -90,8 +90,7 @@ namespace British_Kingdom_back.Controllers
                         continue;
 
                     // Generate a unique name for the blob
-                    string extension = Path.GetExtension(file.FileName);
-                    string uniqueFileName = $"{Guid.NewGuid()}{extension}";
+                    string uniqueFileName = $"{Guid.NewGuid()}.webp";
 
                     // Get a reference to the container
                     var containerName = _configuration["AzureStorage:ContainerName"];
@@ -100,10 +99,20 @@ namespace British_Kingdom_back.Controllers
                     // Get a reference to the blob
                     var blobClient = containerClient.GetBlobClient($"{directory}/{uniqueFileName}");
 
-                    // Upload the file to Azure Blob Storage
-                    using (var stream = file.OpenReadStream())
+                    using (var memoryStream = new MemoryStream())
                     {
-                        await blobClient.UploadAsync(stream, true);
+                        // Load the image using ImageSharp
+                        using (var image = await Image.LoadAsync(file.OpenReadStream()))
+                        {
+                            // Convert the image to WebP and save it to the memory stream
+                            await image.SaveAsWebpAsync(memoryStream);
+                        }
+
+                        // Reset the position of the memory stream before uploading
+                        memoryStream.Position = 0;
+
+                        // Upload the converted image to Azure Blob Storage
+                        await blobClient.UploadAsync(memoryStream, true);
                     }
 
                     // Get the URL of the uploaded blob
@@ -120,5 +129,4 @@ namespace British_Kingdom_back.Controllers
             }
         }
     }
-
 }
