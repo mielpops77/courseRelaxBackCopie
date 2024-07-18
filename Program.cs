@@ -32,13 +32,18 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularFrontend",
         builder =>
-        {
+     {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+      /*   {
             //http://192.168.1.23 backend coté azure
             //178.32.77.113 british kingdom.fr ovh
             builder.WithOrigins("http://localhost:4200", "http://localhost:65255", "http://localhost:65256", "http://192.168.1.23", "https://www.chatterie-british-kingdom.fr", "https://www.eleveur-connect.fr", "https://www.demo-eleveur-connect.fr", "https://chatterie-britishkingdom.netlify.app")
                 .AllowAnyMethod()
                 .AllowAnyHeader();
-        });
+        }); */
 });
 
 // Add authentication
