@@ -111,5 +111,37 @@ namespace British_Kingdom_back.Controllers
                 }
             }
         }
+
+        [HttpDelete("{id}")]
+public async Task<IActionResult> DeleteUser(int id)
+{
+    var connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+    var query = "DELETE FROM Users WHERE Id = @Id";
+
+    using (var connection = new SqlConnection(connectionString))
+    {
+        await connection.OpenAsync();
+
+        using (var command = new SqlCommand(query, connection))
+        {
+            command.Parameters.AddWithValue("@Id", id);
+
+            int rowsAffected = await command.ExecuteNonQueryAsync();
+
+            if (rowsAffected > 0)
+            {
+                return Ok(new { message = "User deleted successfully" });
+            }
+            else
+            {
+                return NotFound(new { message = "User not found" });
+            }
+        }
     }
+}
+
+    }
+
+    
 }
