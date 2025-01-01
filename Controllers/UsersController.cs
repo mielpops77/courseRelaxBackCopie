@@ -23,7 +23,7 @@ namespace British_Kingdom_back.Controllers
         {
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
             var users = new List<User>();
-            var query = "SELECT Id, Address, FirstName, LastName, PhoneNumber, DateCreated FROM Users";
+            var query = "SELECT * FROM Users";
 
             using (var connection = new SqlConnection(connectionString))
             {
@@ -42,7 +42,8 @@ namespace British_Kingdom_back.Controllers
                                 FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
                                 LastName = reader.GetString(reader.GetOrdinal("LastName")),
                                 PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber")),
-                                DateCreated = reader.GetDateTime(reader.GetOrdinal("DateCreated"))
+                                DateCreated = reader.GetString(reader.GetOrdinal("DateCreated")),
+
                             };
                             users.Add(user);
                         }
@@ -142,5 +143,8 @@ namespace British_Kingdom_back.Controllers
                 }
             }
         }
+
     }
+
+
 }
