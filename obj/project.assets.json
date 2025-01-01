@@ -9476,11 +9476,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\British-Kingdom-back.csproj",
+      "projectUniqueName": "C:\\Users\\amiel\\OneDrive\\Bureau\\business\\copie-pour-coursesRelaxback\\British-Kingdom-back.csproj",
       "projectName": "British-Kingdom-back",
-      "projectPath": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\British-Kingdom-back.csproj",
+      "projectPath": "C:\\Users\\amiel\\OneDrive\\Bureau\\business\\copie-pour-coursesRelaxback\\British-Kingdom-back.csproj",
       "packagesPath": "C:\\Users\\amiel\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\amiel\\OneDrive\\Bureau\\Dev\\British-Kingdom-back\\obj\\",
+      "outputPath": "C:\\Users\\amiel\\OneDrive\\Bureau\\business\\copie-pour-coursesRelaxback\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\amiel\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -9610,6 +9610,26 @@
     }
   },
   "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'SixLabors.ImageSharp' 3.1.4 has a known high severity vulnerability, https://github.com/advisories/GHSA-63p8-c4ww-9cg7",
+      "libraryId": "SixLabors.ImageSharp",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'SixLabors.ImageSharp' 3.1.4 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-qxrv-gp6x-rc23",
+      "libraryId": "SixLabors.ImageSharp",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
     {
       "code": "NU1903",
       "level": "Warning",
