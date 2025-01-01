@@ -7,5 +7,7 @@ namespace British_Kingdom_back.Models
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
+        public DateTime DateCreated { get; set; } // Nouvelle propriété
+
     }
 }

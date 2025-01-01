@@ -23,7 +23,7 @@ namespace British_Kingdom_back.Controllers
         {
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
             var users = new List<User>();
-            var query = "SELECT * FROM Users";
+            var query = "SELECT Id, Address, FirstName, LastName, PhoneNumber, DateCreated FROM Users";
 
             using (var connection = new SqlConnection(connectionString))
             {
@@ -41,7 +41,8 @@ namespace British_Kingdom_back.Controllers
                                 Address = reader.GetString(reader.GetOrdinal("Address")),
                                 FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
                                 LastName = reader.GetString(reader.GetOrdinal("LastName")),
-                                PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber"))
+                                PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber")),
+                                DateCreated = reader.GetDateTime(reader.GetOrdinal("DateCreated"))
                             };
                             users.Add(user);
                         }
@@ -58,7 +59,7 @@ namespace British_Kingdom_back.Controllers
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
             int newId;
 
-            var query = "INSERT INTO Users (Address, FirstName, LastName, PhoneNumber) OUTPUT INSERTED.Id VALUES (@Address, @FirstName, @LastName, @PhoneNumber)";
+            var query = "INSERT INTO Users (Address, FirstName, LastName, PhoneNumber, DateCreated) OUTPUT INSERTED.Id VALUES (@Address, @FirstName, @LastName, @PhoneNumber, @DateCreated)";
 
             using (var connection = new SqlConnection(connectionString))
             {
@@ -70,6 +71,7 @@ namespace British_Kingdom_back.Controllers
                     command.Parameters.AddWithValue("@FirstName", user.FirstName);
                     command.Parameters.AddWithValue("@LastName", user.LastName);
                     command.Parameters.AddWithValue("@PhoneNumber", user.PhoneNumber);
+                    command.Parameters.AddWithValue("@DateCreated", user.DateCreated);
 
                     newId = (int)await command.ExecuteScalarAsync();
                 }
@@ -113,35 +115,32 @@ namespace British_Kingdom_back.Controllers
         }
 
         [HttpDelete("{id}")]
-public async Task<IActionResult> DeleteUser(int id)
-{
-    var connectionString = _configuration.GetConnectionString("DefaultConnection");
-
-    var query = "DELETE FROM Users WHERE Id = @Id";
-
-    using (var connection = new SqlConnection(connectionString))
-    {
-        await connection.OpenAsync();
-
-        using (var command = new SqlCommand(query, connection))
+        public async Task<IActionResult> DeleteUser(int id)
         {
-            command.Parameters.AddWithValue("@Id", id);
+            var connectionString = _configuration.GetConnectionString("DefaultConnection");
 
-            int rowsAffected = await command.ExecuteNonQueryAsync();
+            var query = "DELETE FROM Users WHERE Id = @Id";
 
-            if (rowsAffected > 0)
+            using (var connection = new SqlConnection(connectionString))
             {
-                return Ok(new { message = "User deleted successfully" });
-            }
-            else
-            {
-                return NotFound(new { message = "User not found" });
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", id);
+
+                    int rowsAffected = await command.ExecuteNonQueryAsync();
+
+                    if (rowsAffected > 0)
+                    {
+                        return Ok(new { message = "User deleted successfully" });
+                    }
+                    else
+                    {
+                        return NotFound(new { message = "User not found" });
+                    }
+                }
             }
         }
     }
-}
-
-    }
-
-    
 }
