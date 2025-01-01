@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app to Azure Web App - British-kingdom-back
+name: Build and deploy ASP.Net Core app to Azure Web App - courses-relax
 
 on:
   push:
@@ -51,15 +51,15 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_A38FA6D4032048A38F54F94F43EDF817 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_0AE36C22D51E429DAA0C31987C8C0AF0 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_D2DDD7B1AFF8496E8EBD14A5B13D1EBF }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_690188D6678343C78D1005976A2E9B0C }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_7884A14E3C9A4BFDA216D593748E2F0D }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_899C78EEBBF1414B8BC7D0D0886FF84C }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'British-kingdom-back'
+          app-name: 'courses-relax'
           slot-name: 'Production'
           package: .
           
