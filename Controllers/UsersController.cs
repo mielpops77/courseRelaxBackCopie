@@ -51,5 +51,65 @@ namespace British_Kingdom_back.Controllers
 
             return Ok(users);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateUser(User user)
+        {
+            var connectionString = _configuration.GetConnectionString("DefaultConnection");
+            int newId;
+
+            var query = "INSERT INTO Users (Address, FirstName, LastName, PhoneNumber) OUTPUT INSERTED.Id VALUES (@Address, @FirstName, @LastName, @PhoneNumber)";
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Address", user.Address);
+                    command.Parameters.AddWithValue("@FirstName", user.FirstName);
+                    command.Parameters.AddWithValue("@LastName", user.LastName);
+                    command.Parameters.AddWithValue("@PhoneNumber", user.PhoneNumber);
+
+                    newId = (int)await command.ExecuteScalarAsync();
+                }
+            }
+
+            user.Id = newId;
+            return CreatedAtAction(nameof(GetAllUsers), new { id = newId }, user);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, User user)
+        {
+            var connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+            var query = "UPDATE Users SET Address = @Address, FirstName = @FirstName, LastName = @LastName, PhoneNumber = @PhoneNumber WHERE Id = @Id";
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", id);
+                    command.Parameters.AddWithValue("@Address", user.Address);
+                    command.Parameters.AddWithValue("@FirstName", user.FirstName);
+                    command.Parameters.AddWithValue("@LastName", user.LastName);
+                    command.Parameters.AddWithValue("@PhoneNumber", user.PhoneNumber);
+
+                    int rowsAffected = await command.ExecuteNonQueryAsync();
+
+                    if (rowsAffected > 0)
+                    {
+                        return Ok(new { message = "User updated successfully" });
+                    }
+                    else
+                    {
+                        return NotFound(new { message = "User not found" });
+                    }
+                }
+            }
+        }
     }
 }
